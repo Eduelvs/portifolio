@@ -38,7 +38,7 @@ const menuItems: MenuItem[] = [
   {
     icon: <User className="h-5 w-5" />,
     label: "Profile",
-    href: "#",
+    href: "/profile",
     gradient: "radial-gradient(circle, rgba(239,68,68,0.15) 0%, rgba(220,38,38,0.06) 50%, rgba(185,28,28,0) 100%)",
     iconColor: "text-red-500",
   },
