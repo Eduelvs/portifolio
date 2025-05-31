@@ -62,3 +62,5 @@ export function WhatsAppButton() {
     </motion.div>
   )
 }
+
+export default WhatsAppButton
