@@ -1,8 +1,21 @@
 "use client"
 
 import { motion, useScroll, useTransform } from "framer-motion"
-import { useRef } from "react"
-import { Code, Globe, Zap, Coffee, Heart, GraduationCap, Award, Calendar, ExternalLink } from "lucide-react"
+import { useRef, useState } from "react"
+import {
+  Code,
+  Globe,
+  Zap,
+  Coffee,
+  Heart,
+  GraduationCap,
+  Award,
+  Calendar,
+  ExternalLink,
+  MapPin,
+  Briefcase,
+  Star,
+} from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -147,6 +160,57 @@ const courses = [
   },
 ]
 
+const timeline = [
+  {
+    year: "2020",
+    title: "Início da Jornada",
+    description: "Primeiros passos na programação com HTML, CSS e JavaScript básico",
+    icon: <Star className="h-5 w-5" />,
+    color: "from-yellow-500 to-orange-500",
+    achievements: ["Primeiro 'Hello World'", "Criação do primeiro site", "Descoberta da paixão por código"],
+  },
+  {
+    year: "2021",
+    title: "Aprofundamento Frontend",
+    description: "Foco em React e desenvolvimento de interfaces modernas",
+    icon: <Code className="h-5 w-5" />,
+    color: "from-blue-500 to-cyan-500",
+    achievements: ["Domínio do React", "Primeiros projetos pessoais", "Aprendizado de Git/GitHub"],
+  },
+  {
+    year: "2022",
+    title: "Expansão Backend",
+    description: "Desenvolvimento full-stack com Node.js e bancos de dados",
+    icon: <Briefcase className="h-5 w-5" />,
+    color: "from-green-500 to-emerald-500",
+    achievements: ["APIs REST", "Integração com bancos de dados", "Primeiro projeto full-stack"],
+  },
+  {
+    year: "2023",
+    title: "Profissionalização",
+    description: "Entrada no mercado de trabalho e projetos comerciais",
+    icon: <MapPin className="h-5 w-5" />,
+    color: "from-purple-500 to-pink-500",
+    achievements: ["Primeiro emprego tech", "Projetos em produção", "Trabalho em equipe"],
+  },
+  {
+    year: "2024",
+    title: "Especialização",
+    description: "Foco em tecnologias avançadas e liderança técnica",
+    icon: <GraduationCap className="h-5 w-5" />,
+    color: "from-indigo-500 to-purple-500",
+    achievements: ["Certificações AWS", "Mentoria de juniors", "Arquitetura de sistemas"],
+  },
+  {
+    year: "2025",
+    title: "Futuro",
+    description: "Metas e objetivos para continuar evoluindo",
+    icon: <Globe className="h-5 w-5" />,
+    color: "from-teal-500 to-blue-500",
+    achievements: ["Projetos internacionais", "Contribuições open source", "Palestras técnicas"],
+  },
+]
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -204,18 +268,6 @@ const glowVariants = {
   },
 }
 
-const floatingVariants = {
-  animate: {
-    y: [-10, 10, -10],
-    rotate: [0, 5, -5, 0],
-    transition: {
-      duration: 6,
-      repeat: Number.POSITIVE_INFINITY,
-      ease: "easeInOut",
-    },
-  },
-}
-
 const getStatusColor = (status: string) => {
   switch (status) {
     case "Concluído":
@@ -233,6 +285,8 @@ export function HomePage() {
   const { theme } = useTheme()
   const isDarkTheme = theme === "dark"
   const containerRef = useRef<HTMLDivElement>(null)
+  const [selectedTimelineItem, setSelectedTimelineItem] = useState(2) // Default to 2022
+
   const { scrollYProgress } = useScroll({
     target: containerRef,
     offset: ["start start", "end end"],
@@ -240,9 +294,10 @@ export function HomePage() {
 
   // Parallax effect for sections
   const aboutY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
-  const coursesY = useTransform(scrollYProgress, [0.2, 0.5], [50, -50])
-  const languagesY = useTransform(scrollYProgress, [0.4, 0.7], [50, -50])
-  const ctaY = useTransform(scrollYProgress, [0.6, 1], [50, -20])
+  const timelineY = useTransform(scrollYProgress, [0.1, 0.4], [50, -50])
+  const coursesY = useTransform(scrollYProgress, [0.3, 0.6], [50, -50])
+  const languagesY = useTransform(scrollYProgress, [0.5, 0.8], [50, -50])
+  const ctaY = useTransform(scrollYProgress, [0.7, 1], [50, -20])
 
   return (
     <div ref={containerRef} className="max-w-6xl mx-auto px-4 py-8">
@@ -274,7 +329,7 @@ export function HomePage() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.2 }}
           >
-            Olá, eu sou Eduardo! 👋
+            Olá, eu sou Eduardo! <span className="inline-block animate-bounce">👋</span>
           </motion.h1>
 
           <motion.p
@@ -345,6 +400,98 @@ export function HomePage() {
               </p>
             </CardContent>
           </Card>
+        </motion.section>
+
+        {/* Timeline Section */}
+        <motion.section variants={itemVariants} className="mb-16" style={{ y: timelineY }}>
+          <div className="text-center mb-12">
+            <h2 className="text-3xl font-bold text-foreground mb-4">Minha Jornada</h2>
+            <p className="text-muted-foreground">Uma linha do tempo da minha evolução como desenvolvedor</p>
+          </div>
+
+          <div className="relative">
+            {/* Timeline Line */}
+            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 rounded-full transform -translate-y-1/2" />
+
+            {/* Timeline Items */}
+            <div className="flex justify-between items-center relative">
+              {timeline.map((item, index) => (
+                <motion.div
+                  key={item.year}
+                  className="flex flex-col items-center cursor-pointer group"
+                  onClick={() => setSelectedTimelineItem(index)}
+                  whileHover={{ scale: 1.1 }}
+                  whileTap={{ scale: 0.95 }}
+                >
+                  {/* Timeline Point */}
+                  <motion.div
+                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg mb-4 relative z-10 ${
+                      selectedTimelineItem === index ? "ring-4 ring-white/50" : ""
+                    }`}
+                    animate={{
+                      scale: selectedTimelineItem === index ? 1.2 : 1,
+                    }}
+                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                  >
+                    {item.icon}
+                  </motion.div>
+
+                  {/* Year */}
+                  <div className="text-sm font-bold text-foreground mb-2">{item.year}</div>
+
+                  {/* Title (visible on hover or selection) */}
+                  <motion.div
+                    className="text-xs text-center text-muted-foreground max-w-20"
+                    animate={{
+                      opacity: selectedTimelineItem === index ? 1 : 0.7,
+                    }}
+                  >
+                    {item.title}
+                  </motion.div>
+                </motion.div>
+              ))}
+            </div>
+
+            {/* Selected Item Details */}
+            <motion.div
+              className="mt-12"
+              key={selectedTimelineItem}
+              initial={{ opacity: 0, y: 20 }}
+              animate={{ opacity: 1, y: 0 }}
+              transition={{ duration: 0.3 }}
+            >
+              <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
+                <CardContent className="p-8">
+                  <div className="text-center mb-6">
+                    <div
+                      className={`inline-flex items-center justify-center w-12 h-12 rounded-full bg-gradient-to-r ${timeline[selectedTimelineItem].color} text-white mb-4`}
+                    >
+                      {timeline[selectedTimelineItem].icon}
+                    </div>
+                    <h3 className="text-2xl font-bold text-foreground mb-2">
+                      {timeline[selectedTimelineItem].year} - {timeline[selectedTimelineItem].title}
+                    </h3>
+                    <p className="text-muted-foreground mb-6">{timeline[selectedTimelineItem].description}</p>
+                  </div>
+
+                  <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
+                    {timeline[selectedTimelineItem].achievements.map((achievement, index) => (
+                      <motion.div
+                        key={achievement}
+                        className="flex items-center gap-3 p-4 rounded-lg bg-muted/50"
+                        initial={{ opacity: 0, x: -20 }}
+                        animate={{ opacity: 1, x: 0 }}
+                        transition={{ delay: index * 0.1 }}
+                      >
+                        <div className="w-2 h-2 bg-gradient-to-r from-blue-500 to-purple-500 rounded-full" />
+                        <span className="text-sm text-foreground">{achievement}</span>
+                      </motion.div>
+                    ))}
+                  </div>
+                </CardContent>
+              </Card>
+            </motion.div>
+          </div>
         </motion.section>
 
         {/* Education & Courses Section */}
