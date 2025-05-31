@@ -159,7 +159,7 @@ export function ProfilePage() {
                 <div className="flex-1 space-y-4">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h1 className="text-3xl font-bold text-foreground">Eduardo Silva</h1>
+                      <h1 className="text-3xl font-bold text-foreground">Eduardo Alves Carvalho</h1>
                       <p className="text-xl text-muted-foreground">Full Stack Developer</p>
                     </div>
                     <Button variant="outline" className="gap-2">
