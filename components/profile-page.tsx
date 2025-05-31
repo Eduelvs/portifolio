@@ -210,7 +210,7 @@ export function ProfilePage() {
                         <Github className="h-4 w-4" />
                       </Button>
                     </Link>
-                    <Link href="linkedin.com/in/eduardo-alves-edualves/">
+                    <Link href="https://linkedin.com/in/eduardo-alves-edualves/">
                       <Button variant="ghost" size="sm" className="p-2">
                         <Linkedin className="h-4 w-4" />
                       </Button>
@@ -220,7 +220,7 @@ export function ProfilePage() {
                         <Twitter className="h-4 w-4" />
                       </Button>
                     </Link>
-                    <Link href="eduelvs.vercel.app/">
+                    <Link href="eduelvs.vercel.app">
                       <Button variant="ghost" size="sm" className="p-2">
                         <Globe className="h-4 w-4" />
                       </Button>
