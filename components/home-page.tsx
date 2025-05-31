@@ -1,7 +1,7 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Code, Globe, Zap, Coffee, Heart } from "lucide-react"
+import { Code, Globe, Zap, Coffee, Heart, GraduationCap, Award, Calendar, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
@@ -65,6 +65,87 @@ const languages = [
   },
 ]
 
+const courses = [
+  {
+    title: "Desenvolvimento Web Full Stack",
+    institution: "Rocketseat",
+    duration: "6 meses",
+    year: "2023",
+    description: "Curso completo de desenvolvimento web com React, Node.js e banco de dados",
+    skills: ["React", "Node.js", "TypeScript", "PostgreSQL"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Concluído",
+    gradient: "from-purple-500/20 to-blue-500/20",
+    borderColor: "border-purple-400/30",
+    icon: "🚀",
+  },
+  {
+    title: "JavaScript Moderno (ES6+)",
+    institution: "Udemy",
+    duration: "40 horas",
+    year: "2023",
+    description: "Curso avançado de JavaScript com foco em ES6+ e programação funcional",
+    skills: ["JavaScript", "ES6+", "Async/Await", "Modules"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Concluído",
+    gradient: "from-yellow-500/20 to-orange-500/20",
+    borderColor: "border-yellow-400/30",
+    icon: "⚡",
+  },
+  {
+    title: "React Native - Mobile Development",
+    institution: "Alura",
+    duration: "3 meses",
+    year: "2024",
+    description: "Desenvolvimento de aplicativos móveis com React Native e Expo",
+    skills: ["React Native", "Expo", "Mobile UI", "APIs"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Concluído",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    borderColor: "border-blue-400/30",
+    icon: "📱",
+  },
+  {
+    title: "UI/UX Design Fundamentals",
+    institution: "Coursera",
+    duration: "2 meses",
+    year: "2024",
+    description: "Princípios de design de interface e experiência do usuário",
+    skills: ["Figma", "Design Systems", "Prototyping", "User Research"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Concluído",
+    gradient: "from-pink-500/20 to-purple-500/20",
+    borderColor: "border-pink-400/30",
+    icon: "🎨",
+  },
+  {
+    title: "DevOps e Cloud Computing",
+    institution: "AWS Training",
+    duration: "4 meses",
+    year: "2024",
+    description: "Infraestrutura em nuvem, CI/CD e práticas DevOps",
+    skills: ["AWS", "Docker", "CI/CD", "Kubernetes"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Em Andamento",
+    gradient: "from-green-500/20 to-teal-500/20",
+    borderColor: "border-green-400/30",
+    icon: "☁️",
+  },
+  {
+    title: "Machine Learning com Python",
+    institution: "DataCamp",
+    duration: "5 meses",
+    year: "2024",
+    description: "Introdução ao aprendizado de máquina e análise de dados",
+    skills: ["Python", "Pandas", "Scikit-learn", "TensorFlow"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Planejado",
+    gradient: "from-indigo-500/20 to-purple-500/20",
+    borderColor: "border-indigo-400/30",
+    icon: "🤖",
+  },
+]
+
 const containerVariants = {
   hidden: { opacity: 0 },
   visible: {
@@ -120,6 +201,31 @@ const glowVariants = {
       ease: "easeOut",
     },
   },
+}
+
+const floatingVariants = {
+  animate: {
+    y: [-10, 10, -10],
+    rotate: [0, 5, -5, 0],
+    transition: {
+      duration: 6,
+      repeat: Number.POSITIVE_INFINITY,
+      ease: "easeInOut",
+    },
+  },
+}
+
+const getStatusColor = (status: string) => {
+  switch (status) {
+    case "Concluído":
+      return "bg-green-500/20 text-green-700 dark:text-green-300 border-green-500/30"
+    case "Em Andamento":
+      return "bg-blue-500/20 text-blue-700 dark:text-blue-300 border-blue-500/30"
+    case "Planejado":
+      return "bg-orange-500/20 text-orange-700 dark:text-orange-300 border-orange-500/30"
+    default:
+      return "bg-gray-500/20 text-gray-700 dark:text-gray-300 border-gray-500/30"
+  }
 }
 
 export function HomePage() {
@@ -229,8 +335,101 @@ export function HomePage() {
           </Card>
         </motion.section>
 
+        {/* Education & Courses Section */}
+        <motion.section variants={itemVariants} className="mb-16">
+          <div className="relative">
+            {/* Animated Background Elements */}
+            <div className="absolute inset-0 overflow-hidden pointer-events-none">
+              {[...Array(8)].map((_, i) => (
+                <motion.div
+                  key={i}
+                  className={`absolute w-20 h-20 rounded-full opacity-10 ${
+                    i % 4 === 0
+                      ? "bg-blue-500"
+                      : i % 4 === 1
+                        ? "bg-purple-500"
+                        : i % 4 === 2
+                          ? "bg-green-500"
+                          : "bg-orange-500"
+                  }`}
+                  style={{
+                    left: `${Math.random() * 100}%`,
+                    top: `${Math.random() * 100}%`,
+                  }}
+                  variants={floatingVariants}
+                  animate="animate"
+                  transition={{ delay: i * 0.5 }}
+                />
+              ))}
+            </div>
+
+            <h2 className="text-3xl font-bold text-center mb-12 text-foreground relative z-10">
+              <GraduationCap className="inline-block w-8 h-8 mr-3 mb-1" />
+              Formação & Cursos
+            </h2>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 relative z-10">
+              {courses.map((course, index) => (
+                <motion.div
+                  key={course.title}
+                  variants={cardVariants}
+                  initial="hidden"
+                  animate="visible"
+                  whileHover="hover"
+                  transition={{ delay: index * 0.1 }}
+                >
+                  <Card
+                    className={`relative overflow-hidden border ${course.borderColor} bg-gradient-to-br ${course.gradient} backdrop-blur-lg group cursor-pointer h-full`}
+                  >
+                    <motion.div className="absolute inset-0 bg-gradient-to-r from-transparent via-white/5 to-transparent -translate-x-full group-hover:translate-x-full transition-transform duration-1000" />
+
+                    <CardContent className="p-6 relative z-10 h-full flex flex-col">
+                      <div className="flex items-start justify-between mb-4">
+                        <div className="text-3xl">{course.icon}</div>
+                        <div className="flex flex-col items-end gap-2">
+                          <Badge className={`${getStatusColor(course.status)} border text-xs`}>{course.status}</Badge>
+                          <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                            <Calendar className="h-3 w-3" />
+                            {course.year}
+                          </div>
+                        </div>
+                      </div>
+
+                      <h3 className="text-lg font-bold text-foreground mb-2">{course.title}</h3>
+                      <p className="text-sm text-muted-foreground mb-2">{course.institution}</p>
+                      <p className="text-xs text-muted-foreground mb-4">{course.duration}</p>
+
+                      <p className="text-sm text-muted-foreground mb-4 flex-1">{course.description}</p>
+
+                      <div className="space-y-4">
+                        <div className="flex flex-wrap gap-2">
+                          {course.skills.map((skill) => (
+                            <Badge key={skill} variant="outline" className="text-xs">
+                              {skill}
+                            </Badge>
+                          ))}
+                        </div>
+
+                        {course.certificate && course.status === "Concluído" && (
+                          <Button variant="outline" size="sm" className="w-full" asChild>
+                            <a href={course.certificate} target="_blank" rel="noopener noreferrer">
+                              <Award className="h-4 w-4 mr-2" />
+                              Ver Certificado
+                              <ExternalLink className="h-3 w-3 ml-2" />
+                            </a>
+                          </Button>
+                        )}
+                      </div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </div>
+        </motion.section>
+
         {/* Languages Section */}
-        <motion.section variants={itemVariants}>
+        <motion.section variants={itemVariants} className="mb-16">
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Minhas Linguagens & Tecnologias</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -279,7 +478,7 @@ export function HomePage() {
         </motion.section>
 
         {/* Call to Action */}
-        <motion.section variants={itemVariants} className="text-center mt-16">
+        <motion.section variants={itemVariants} className="text-center">
           <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-foreground mb-4">Vamos trabalhar juntos?</h2>
