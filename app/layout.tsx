@@ -1,7 +1,8 @@
 import "@/styles/globals.css"
 import { Inter } from "next/font/google"
 import { ThemeProvider } from "@/components/theme-provider"
-import type React from "react" // Added import for React
+import { PageLayout } from "@/components/page-layout"
+import type React from "react"
 
 const inter = Inter({ subsets: ["latin"] })
 
@@ -14,7 +15,7 @@ export default function RootLayout({
     <html lang="en" suppressHydrationWarning>
       <body className={inter.className}>
         <ThemeProvider attribute="class" defaultTheme="light" disableSystemTheme>
-          {children}
+          <PageLayout>{children}</PageLayout>
         </ThemeProvider>
       </body>
     </html>
@@ -22,5 +23,5 @@ export default function RootLayout({
 }
 
 export const metadata = {
-      generator: 'v0.dev'
-    };
+  generator: "v0.dev",
+}
