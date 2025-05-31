@@ -1,6 +1,7 @@
 "use client"
 
-import { motion } from "framer-motion"
+import { motion, useScroll, useTransform } from "framer-motion"
+import { useRef } from "react"
 import { Code, Globe, Zap, Coffee, Heart, GraduationCap, Award, Calendar, ExternalLink } from "lucide-react"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -231,9 +232,20 @@ const getStatusColor = (status: string) => {
 export function HomePage() {
   const { theme } = useTheme()
   const isDarkTheme = theme === "dark"
+  const containerRef = useRef<HTMLDivElement>(null)
+  const { scrollYProgress } = useScroll({
+    target: containerRef,
+    offset: ["start start", "end end"],
+  })
+
+  // Parallax effect for sections
+  const aboutY = useTransform(scrollYProgress, [0, 0.3], [0, -50])
+  const coursesY = useTransform(scrollYProgress, [0.2, 0.5], [50, -50])
+  const languagesY = useTransform(scrollYProgress, [0.4, 0.7], [50, -50])
+  const ctaY = useTransform(scrollYProgress, [0.6, 1], [50, -20])
 
   return (
-    <div className="max-w-6xl mx-auto px-4 py-8">
+    <div ref={containerRef} className="max-w-6xl mx-auto px-4 py-8">
       <motion.div variants={containerVariants} initial="hidden" animate="visible">
         {/* Hero Section */}
         <motion.section variants={itemVariants} className="text-center mb-16">
@@ -311,7 +323,7 @@ export function HomePage() {
         </motion.section>
 
         {/* About Section */}
-        <motion.section variants={itemVariants} className="mb-16">
+        <motion.section variants={itemVariants} className="mb-16" style={{ y: aboutY }}>
           <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
             <motion.div
               className={`absolute -inset-2 bg-gradient-radial from-transparent ${
@@ -336,33 +348,8 @@ export function HomePage() {
         </motion.section>
 
         {/* Education & Courses Section */}
-        <motion.section variants={itemVariants} className="mb-16">
+        <motion.section variants={itemVariants} className="mb-16" style={{ y: coursesY }}>
           <div className="relative">
-            {/* Animated Background Elements */}
-            <div className="absolute inset-0 overflow-hidden pointer-events-none">
-              {[...Array(8)].map((_, i) => (
-                <motion.div
-                  key={i}
-                  className={`absolute w-20 h-20 rounded-full opacity-10 ${
-                    i % 4 === 0
-                      ? "bg-blue-500"
-                      : i % 4 === 1
-                        ? "bg-purple-500"
-                        : i % 4 === 2
-                          ? "bg-green-500"
-                          : "bg-orange-500"
-                  }`}
-                  style={{
-                    left: `${Math.random() * 100}%`,
-                    top: `${Math.random() * 100}%`,
-                  }}
-                  variants={floatingVariants}
-                  animate="animate"
-                  transition={{ delay: i * 0.5 }}
-                />
-              ))}
-            </div>
-
             <h2 className="text-3xl font-bold text-center mb-12 text-foreground relative z-10">
               <GraduationCap className="inline-block w-8 h-8 mr-3 mb-1" />
               Formação & Cursos
@@ -429,7 +416,7 @@ export function HomePage() {
         </motion.section>
 
         {/* Languages Section */}
-        <motion.section variants={itemVariants} className="mb-16">
+        <motion.section variants={itemVariants} className="mb-16" style={{ y: languagesY }}>
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Minhas Linguagens & Tecnologias</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
@@ -478,7 +465,7 @@ export function HomePage() {
         </motion.section>
 
         {/* Call to Action */}
-        <motion.section variants={itemVariants} className="text-center">
+        <motion.section variants={itemVariants} className="text-center" style={{ y: ctaY }}>
           <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-foreground mb-4">Vamos trabalhar juntos?</h2>
