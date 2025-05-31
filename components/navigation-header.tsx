@@ -6,6 +6,7 @@ import { Home, Settings, Bell, User } from "lucide-react"
 import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
+import { ThemeToggle } from "./theme-toggle"
 
 interface MenuItem {
   icon: React.ReactNode
@@ -92,8 +93,8 @@ export function NavigationHeader() {
   const isDarkTheme = theme === "dark"
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 p-4">
-      <div className="max-w-6xl mx-auto">
+    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
+      <div className="flex items-center gap-4">
         <motion.nav
           className="p-2 rounded-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden"
           initial="initial"
@@ -169,6 +170,26 @@ export function NavigationHeader() {
             })}
           </ul>
         </motion.nav>
+
+        {/* Theme Toggle Button with enhanced styling */}
+        <motion.div
+          className="p-2 rounded-full bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden"
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <motion.div
+            className={`absolute -inset-2 bg-gradient-radial from-transparent ${
+              isDarkTheme
+                ? "via-yellow-400/30 via-30% via-purple-400/30 via-60%"
+                : "via-blue-400/20 via-30% via-purple-400/20 via-60%"
+            } to-transparent rounded-full z-0 pointer-events-none opacity-0`}
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+          />
+          <div className="relative z-10">
+            <ThemeToggle />
+          </div>
+        </motion.div>
       </div>
     </header>
   )
