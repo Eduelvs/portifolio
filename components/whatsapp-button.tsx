@@ -1,12 +1,12 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { MessageCircle } from "lucide-react"
 import { useState } from "react"
+import Image from "next/image"
 
 export function WhatsAppButton() {
   const [isHovered, setIsHovered] = useState(false)
-  const phoneNumber = "5511999999999" // Substitua pelo seu número de WhatsApp
+  const phoneNumber = "5512988864279" // Seu número de WhatsApp
   const message = "Olá! Vim do seu portfólio e gostaria de conversar."
   const whatsappUrl = `https://wa.me/${phoneNumber}?text=${encodeURIComponent(message)}`
 
@@ -40,11 +40,17 @@ export function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-lg text-white"
+        className="flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-lg text-white relative overflow-hidden"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.9 }}
       >
-        <MessageCircle size={24} />
+        <Image
+          src="/images/whatsapp-icon.png"
+          alt="WhatsApp"
+          width={28}
+          height={28}
+          className="filter brightness-0 invert"
+        />
         <span className="sr-only">Contato via WhatsApp</span>
       </motion.a>
 
