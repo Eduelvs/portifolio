@@ -15,6 +15,7 @@ import {
   Users,
   Lightbulb,
   Target,
+  Download,
 } from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
@@ -162,10 +163,25 @@ export function ProfilePage() {
                       <h1 className="text-3xl font-bold text-foreground">Eduardo Alves Carvalho</h1>
                       <p className="text-xl text-muted-foreground">Full Stack Developer</p>
                     </div>
-                    <Button variant="outline" className="gap-2">
-                      <Edit3 className="h-4 w-4" />
-                      Editar Perfil
-                    </Button>
+                    <div className="flex gap-2">
+                      <Button variant="outline" className="gap-2">
+                        <Edit3 className="h-4 w-4" />
+                        Editar Perfil
+                      </Button>
+                      <Button
+                        className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+                        onClick={() => {
+                          // Simular download do currículo
+                          const link = document.createElement("a")
+                          link.href = "/curriculo-eduardo-alves.pdf"
+                          link.download = "Curriculo-Eduardo-Alves-Carvalho.pdf"
+                          link.click()
+                        }}
+                      >
+                        <Download className="h-4 w-4" />
+                        Baixar Currículo
+                      </Button>
+                    </div>
                   </div>
 
                   <p className="text-muted-foreground max-w-2xl">

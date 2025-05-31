@@ -162,20 +162,20 @@ const courses = [
 
 const timeline = [
   {
-    year: "2020",
+    year: "2018",
     title: "Início da Jornada",
-    description: "Primeiros passos na programação com HTML, CSS e JavaScript básico",
+    description: "Ingresso na ETEC em Técnico de Informática",
     icon: <Star className="h-5 w-5" />,
     color: "from-yellow-500 to-orange-500",
-    achievements: ["Primeiro 'Hello World'", "Criação do primeiro site", "Descoberta da paixão por código"],
+    achievements: ["Primeiros passos na programação com HTML e CSS", "Criação do primeiro site", "Descoberta da paixão por código"],
   },
   {
     year: "2021",
-    title: "Aprofundamento Frontend",
-    description: "Foco em React e desenvolvimento de interfaces modernas",
+    title: "Início na Graduação",
+    description: "Após anos de preparação ingressei em Engenharia da Computção na UNIFEI.",
     icon: <Code className="h-5 w-5" />,
     color: "from-blue-500 to-cyan-500",
-    achievements: ["Domínio do React", "Primeiros projetos pessoais", "Aprendizado de Git/GitHub"],
+    achievements: ["Primeiro Contato com Lógica de Progrmação","Primeiras Soluções com C" ,"Primeiros projetos pessoais", "Aprendizado de Git/GitHub"],
   },
   {
     year: "2022",
@@ -316,7 +316,7 @@ export function HomePage() {
               initial="initial"
             />
             <Avatar className="w-32 h-32 border-4 border-border/40 relative z-10">
-              <AvatarImage src="/placeholder.svg?height=128&width=128" alt="Minha foto" />
+              <AvatarImage src="/foto_perfil.jpg?height=128&width=128" alt="Minha foto" />
               <AvatarFallback className="text-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
                 EU
               </AvatarFallback>

@@ -47,16 +47,16 @@ const contactInfo: ContactInfo[] = [
   {
     icon: <Mail className="h-5 w-5" />,
     label: "Email",
-    value: "eduardo@exemplo.com",
-    href: "mailto:eduardo@exemplo.com",
+    value: "eduardo15022003@gmail.com",
+    href: "mailto:eduardo15022003@gmail.com",
     color: "text-blue-600",
     gradient: "from-blue-500/20 to-blue-600/20",
   },
   {
     icon: <Phone className="h-5 w-5" />,
     label: "Telefone",
-    value: "+55 (11) 99999-9999",
-    href: "tel:+5511999999999",
+    value: "+55 (12) 98886-4279",
+    href: "tel:+5512988864279",
     color: "text-green-600",
     gradient: "from-green-500/20 to-green-600/20",
   },
@@ -74,35 +74,35 @@ const socialLinks: SocialLink[] = [
   {
     icon: <Github className="h-6 w-6" />,
     label: "GitHub",
-    href: "https://github.com/eduardoexemplo",
+    href: "https://github.com/eduelvs",
     color: "text-gray-800 dark:text-gray-200",
     hoverColor: "hover:text-gray-600 dark:hover:text-white",
   },
   {
     icon: <Linkedin className="h-6 w-6" />,
     label: "LinkedIn",
-    href: "https://linkedin.com/in/eduardoexemplo",
+    href: "https://linkedin.com/in/eduardo-alves-edualves",
     color: "text-blue-600",
     hoverColor: "hover:text-blue-700",
   },
   {
     icon: <Twitter className="h-6 w-6" />,
-    label: "Twitter",
-    href: "https://twitter.com/eduardoexemplo",
+    label: "X",
+    href: "https://x.com/EduardinhoSbb",
     color: "text-sky-500",
     hoverColor: "hover:text-sky-600",
   },
   {
     icon: <Instagram className="h-6 w-6" />,
     label: "Instagram",
-    href: "https://instagram.com/eduardoexemplo",
+    href: "https://instagram.com/sou.duzin",
     color: "text-pink-600",
     hoverColor: "hover:text-pink-700",
   },
   {
     icon: <Globe className="h-6 w-6" />,
     label: "Website",
-    href: "https://eduardoexemplo.com",
+    href: "https://eduelvs.vercel.app",
     color: "text-purple-600",
     hoverColor: "hover:text-purple-700",
   },
@@ -421,7 +421,7 @@ export function ContactPage() {
                 className="bg-green-600 hover:bg-green-700"
                 onClick={() =>
                   window.open(
-                    "https://wa.me/5511999999999?text=Olá! Vim do seu portfólio e gostaria de conversar.",
+                    "https://wa.me/5512988864279?text=Olá! Vim do seu portfólio e gostaria de conversar.",
                     "_blank",
                   )
                 }

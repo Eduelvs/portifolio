@@ -7,6 +7,7 @@ import { useTheme } from "next-themes"
 import { usePathname } from "next/navigation"
 import Link from "next/link"
 import { ThemeToggle } from "./theme-toggle"
+import Image from "next/image"
 
 interface MenuItem {
   icon: React.ReactNode
@@ -80,6 +81,17 @@ const navGlowVariants = {
   },
 }
 
+const avatarGlowVariants = {
+  initial: { opacity: 0 },
+  hover: {
+    opacity: 1,
+    transition: {
+      duration: 0.3,
+      ease: [0.4, 0, 0.2, 1],
+    },
+  },
+}
+
 const sharedTransition = {
   type: "spring",
   stiffness: 100,
@@ -95,6 +107,34 @@ export function NavigationHeader() {
   return (
     <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
       <div className="flex items-center gap-4">
+        {/* Avatar Profile */}
+        <motion.div className="relative" whileHover="hover" initial="initial">
+          <motion.div
+            className={`absolute -inset-1 bg-gradient-to-r ${
+              isDarkTheme
+                ? "from-blue-400/40 via-purple-400/40 to-pink-400/40"
+                : "from-blue-400/30 via-purple-400/30 to-pink-400/30"
+            } rounded-full z-0 pointer-events-none`}
+            variants={avatarGlowVariants}
+          />
+          <Link href="/profile" className="relative z-10 block">
+            <motion.div
+              className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-2 border-border/40 shadow-lg relative"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Image
+                src="/foto_perfil.jpg"
+                alt="Eduardo - Foto de Perfil"
+                width={48}
+                height={48}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </motion.div>
+          </Link>
+        </motion.div>
+
         <motion.nav
           className="p-2 rounded-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden"
           initial="initial"
@@ -140,9 +180,7 @@ export function NavigationHeader() {
                     >
                       <Link href={item.href} className="flex items-center gap-2">
                         <span
-                          className={`transition-colors duration-300 ${
-                            isActive ? item.iconColor : "text-foreground group-hover:" + item.iconColor
-                          }`}
+                          className={`transition-colors duration-300 ${isActive ? item.iconColor : "text-foreground"}`}
                         >
                           {item.icon}
                         </span>
@@ -156,11 +194,7 @@ export function NavigationHeader() {
                       style={{ transformStyle: "preserve-3d", transformOrigin: "center top", rotateX: 90 }}
                     >
                       <Link href={item.href} className="flex items-center gap-2">
-                        <span
-                          className={`transition-colors duration-300 group-hover:${item.iconColor} text-foreground`}
-                        >
-                          {item.icon}
-                        </span>
+                        <span className="transition-colors duration-300 text-foreground">{item.icon}</span>
                         <span>{item.label}</span>
                       </Link>
                     </motion.div>
