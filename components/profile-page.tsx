@@ -22,6 +22,7 @@ import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 const skills = [
   { name: "React", level: 90, color: "bg-blue-500" },
@@ -185,8 +186,7 @@ export function ProfilePage() {
                   </div>
 
                   <p className="text-muted-foreground max-w-2xl">
-                    Desenvolvedor apaixonado por criar experiências digitais incríveis. Especializado em React, Next.js
-                    e tecnologias modernas de desenvolvimento web.
+                    Sou Eduardo Alves Carvalho, estudante de Engenharia da Computação na UNIFEI e Técnico em Informática pela ETEC. Atuo como desenvolvedor full stack, com experiência em React, Node.js, PostgreSQL/PostGIS e soluções com Power BI, IA e machine learning em Python.
                   </p>
 
                   <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
@@ -196,27 +196,35 @@ export function ProfilePage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <Calendar className="h-4 w-4" />
-                      Membro desde 2020
+                      Desde 2018
                     </div>
                     <div className="flex items-center gap-1">
                       <Mail className="h-4 w-4" />
-                      eduardo@exemplo.com
+                      eduardo15022003@gmail.com
                     </div>
                   </div>
 
                   <div className="flex gap-3">
-                    <Button variant="ghost" size="sm" className="p-2">
-                      <Github className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="p-2">
-                      <Linkedin className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="p-2">
-                      <Twitter className="h-4 w-4" />
-                    </Button>
-                    <Button variant="ghost" size="sm" className="p-2">
-                      <Globe className="h-4 w-4" />
-                    </Button>
+                    <Link  href="https://github.com/Eduelvs">
+                      <Button variant="ghost" size="sm" className="p-2">
+                        <Github className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="linkedin.com/in/eduardo-alves-edualves/">
+                      <Button variant="ghost" size="sm" className="p-2">
+                        <Linkedin className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="https://x.com/EduardinhoSbb">
+                      <Button variant="ghost" size="sm" className="p-2">
+                        <Twitter className="h-4 w-4" />
+                      </Button>
+                    </Link>
+                    <Link href="eduelvs.vercel.app/">
+                      <Button variant="ghost" size="sm" className="p-2">
+                        <Globe className="h-4 w-4" />
+                      </Button>
+                    </Link>
                   </div>
                 </div>
               </div>
