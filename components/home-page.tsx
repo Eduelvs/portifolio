@@ -21,6 +21,7 @@ import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { useTheme } from "next-themes"
+import Link from "next/link"
 
 const languages = [
   {
@@ -104,7 +105,7 @@ const languages = [
   {
     name: "MySQL",
     icon: (
-      <svg width="32" height="32" viewBox="-18.458 -22.75 191.151 191.151" xmlns="http://www.w3.org/2000/svg">
+      <svg width="50" height="50" viewBox="-18.458 -22.75 191.151 191.151" xmlns="http://www.w3.org/2000/svg">
         <path
           d="M40.054 113.583h-5.175c-.183-8.735-.687-16.947-1.511-24.642h-.046l-7.879 24.642h-3.94l-7.832-24.642h-.045c-.581 7.388-.947 15.602-1.099 24.642H7.81c.304-10.993 1.068-21.299 2.289-30.919h6.414l7.465 22.719h.046l7.511-22.719h6.137c1.344 11.268 2.138 21.575 2.382 30.919M62.497 90.771c-2.107 11.434-4.887 19.742-8.337 24.928-2.688 3.992-5.633 5.99-8.84 5.99-.855 0-1.91-.258-3.16-.77v-2.757c.611.088 1.328.138 2.152.138 1.498 0 2.702-.412 3.62-1.238 1.098-1.006 1.647-2.137 1.647-3.388 0-.858-.428-2.612-1.282-5.268L42.618 90.77h5.084l4.076 13.19c.916 2.995 1.298 5.086 1.145 6.277 2.229-5.953 3.786-12.444 4.673-19.468h4.901v.002z"
           fill="#5d87a1"
@@ -453,9 +454,9 @@ export function HomePage() {
               initial="initial"
             />
             <Avatar className="w-32 h-32 border-4 border-border/40 relative z-10">
-              <AvatarImage src="/foto_perfil.jpg?height=128&width=128" alt="Minha foto" />
+              <AvatarImage src="/foto_perfil.jpg" alt="Minha foto" />
               <AvatarFallback className="text-2xl bg-gradient-to-br from-blue-500 to-purple-600 text-white">
-                EU
+                EA
               </AvatarFallback>
             </Avatar>
           </div>
@@ -500,17 +501,21 @@ export function HomePage() {
           </motion.div>
 
           <motion.div initial={{ opacity: 0, y: 20 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.8 }}>
-            <Button
-              size="lg"
-              className="mr-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
-            >
-              <Globe className="w-4 h-4 mr-2" />
-              Ver Projetos
-            </Button>
-            <Button variant="outline" size="lg">
-              <Zap className="w-4 h-4 mr-2" />
-              Entre em Contato
-            </Button>
+            <Link href="/projects">
+              <Button
+                size="lg"
+                className="mr-4 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
+              >
+                <Globe className="w-4 h-4 mr-2" />
+                Ver Projetos
+              </Button>
+            </Link>
+            <Link href="/contact">
+              <Button variant="outline" size="lg">
+                <Zap className="w-4 h-4 mr-2" />
+                Entre em Contato
+              </Button>
+            </Link>
           </motion.div>
         </motion.section>
 
@@ -757,12 +762,14 @@ export function HomePage() {
                 Estou sempre aberto a novos desafios e oportunidades. Se você tem um projeto interessante ou quer apenas
                 conversar sobre tecnologia, não hesite em entrar em contato!
               </p>
-              <Button
-                size="lg"
-                className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
-              >
-                Vamos Conversar!
-              </Button>
+              <Link href="/profile" className="relative z-10 block">
+                <Button
+                  size="lg"
+                  className="bg-gradient-to-r from-green-600 to-blue-600 hover:from-green-700 hover:to-blue-700"
+                >
+                  Vamos Conversar!
+                </Button>
+              </Link>
             </CardContent>
           </Card>
         </motion.section>
