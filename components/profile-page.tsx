@@ -145,7 +145,7 @@ export function ProfilePage() {
               <div className="flex flex-col md:flex-row items-start gap-6">
                 <div className="relative">
                   <Avatar className="w-32 h-32 border-4 border-border/40">
-                    <AvatarImage src="/placeholder.svg?height=128&width=128" alt="Profile" />
+                    <AvatarImage src="/foto_perfil.jpg?height=128&width=128" alt="Profile" />
                     <AvatarFallback className="text-2xl">ED</AvatarFallback>
                   </Avatar>
                   <Button
