@@ -1,7 +1,21 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Camera, Edit3, MapPin, Calendar, Mail, Globe, Github, Linkedin, Twitter } from "lucide-react"
+import {
+  Camera,
+  Edit3,
+  MapPin,
+  Calendar,
+  Mail,
+  Globe,
+  Github,
+  Linkedin,
+  Twitter,
+  Heart,
+  Users,
+  Lightbulb,
+  Target,
+} from "lucide-react"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
@@ -38,6 +52,37 @@ const projects = [
     tech: ["React", "OpenAI API", "Tailwind"],
     status: "Planning",
     gradient: "from-orange-500/20 to-red-500/20",
+  },
+]
+
+const personalityTraits = [
+  {
+    icon: <Heart className="h-5 w-5" />,
+    title: "Empático",
+    description: "Compreendo as necessidades dos usuários e crio soluções centradas no humano",
+    color: "text-red-500",
+    gradient: "from-red-500/20 to-pink-500/20",
+  },
+  {
+    icon: <Users className="h-5 w-5" />,
+    title: "Colaborativo",
+    description: "Trabalho bem em equipe e ajudo a motivar outros desenvolvedores",
+    color: "text-blue-500",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+  },
+  {
+    icon: <Lightbulb className="h-5 w-5" />,
+    title: "Visionário",
+    description: "Vejo o potencial em projetos e ajudo a transformar ideias em realidade",
+    color: "text-yellow-500",
+    gradient: "from-yellow-500/20 to-orange-500/20",
+  },
+  {
+    icon: <Target className="h-5 w-5" />,
+    title: "Orientado a Objetivos",
+    description: "Foco em entregar resultados que realmente fazem diferença",
+    color: "text-green-500",
+    gradient: "from-green-500/20 to-emerald-500/20",
   },
 ]
 
@@ -101,7 +146,7 @@ export function ProfilePage() {
                 <div className="relative">
                   <Avatar className="w-32 h-32 border-4 border-border/40">
                     <AvatarImage src="/placeholder.svg?height=128&width=128" alt="Profile" />
-                    <AvatarFallback className="text-2xl">JD</AvatarFallback>
+                    <AvatarFallback className="text-2xl">ED</AvatarFallback>
                   </Avatar>
                   <Button
                     size="sm"
@@ -114,7 +159,7 @@ export function ProfilePage() {
                 <div className="flex-1 space-y-4">
                   <div className="flex items-start justify-between">
                     <div>
-                      <h1 className="text-3xl font-bold text-foreground">João Silva</h1>
+                      <h1 className="text-3xl font-bold text-foreground">Eduardo Silva</h1>
                       <p className="text-xl text-muted-foreground">Full Stack Developer</p>
                     </div>
                     <Button variant="outline" className="gap-2">
@@ -139,7 +184,7 @@ export function ProfilePage() {
                     </div>
                     <div className="flex items-center gap-1">
                       <Mail className="h-4 w-4" />
-                      joao@exemplo.com
+                      eduardo@exemplo.com
                     </div>
                   </div>
 
@@ -166,7 +211,7 @@ export function ProfilePage() {
         <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
           {/* Skills Section */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
-            <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
+            <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg mb-6">
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold mb-4 text-foreground">Habilidades</h2>
                 <div className="space-y-4">
@@ -191,6 +236,49 @@ export function ProfilePage() {
                       </div>
                     </motion.div>
                   ))}
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* Personality Section */}
+            <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
+              <CardContent className="p-6">
+                <div className="text-center mb-6">
+                  <div className="inline-flex items-center gap-2 px-4 py-2 bg-gradient-to-r from-green-500/20 to-blue-500/20 rounded-full border border-green-500/30 mb-4">
+                    <div className="w-3 h-3 bg-green-500 rounded-full"></div>
+                    <span className="text-sm font-medium text-foreground">ENFJ-A</span>
+                  </div>
+                  <h2 className="text-xl font-semibold text-foreground mb-2">Protagonista</h2>
+                  <p className="text-sm text-muted-foreground">
+                    "Líderes inspiradores, capazes de cativar seus ouvintes"
+                  </p>
+                </div>
+
+                <div className="space-y-4">
+                  {personalityTraits.map((trait, index) => (
+                    <motion.div
+                      key={trait.title}
+                      className={`p-4 rounded-lg bg-gradient-to-r ${trait.gradient} border border-border/20`}
+                      initial={{ opacity: 0, y: 10 }}
+                      animate={{ opacity: 1, y: 0 }}
+                      transition={{ delay: index * 0.1 }}
+                    >
+                      <div className="flex items-start gap-3">
+                        <div className={`${trait.color} mt-0.5`}>{trait.icon}</div>
+                        <div>
+                          <h3 className="font-medium text-foreground text-sm">{trait.title}</h3>
+                          <p className="text-xs text-muted-foreground mt-1">{trait.description}</p>
+                        </div>
+                      </div>
+                    </motion.div>
+                  ))}
+                </div>
+
+                <div className="mt-6 p-4 bg-muted/50 rounded-lg">
+                  <p className="text-xs text-muted-foreground text-center">
+                    Como ENFJ-A, trago uma perspectiva única ao desenvolvimento, focando em soluções que realmente
+                    impactam as pessoas e promovem colaboração efetiva em equipes.
+                  </p>
                 </div>
               </CardContent>
             </Card>
