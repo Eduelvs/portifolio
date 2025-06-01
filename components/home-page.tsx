@@ -39,10 +39,10 @@ const languages = [
       </svg>
     ),
     description: "Linguagem versátil para web",
-    level: "Avançado",
+    level: "Intermediário",
     gradient: "from-yellow-400/20 to-yellow-600/20",
     borderColor: "border-yellow-400/30",
-    experience: "3+ anos",
+    experience: "2+ anos",
   },
   {
     name: "React",
@@ -97,10 +97,10 @@ const languages = [
       </svg>
     ),
     description: "Desenvolvimento backend",
-    level: "Intermediário",
+    level: "Avançado",
     gradient: "from-purple-400/20 to-indigo-500/20",
     borderColor: "border-purple-400/30",
-    experience: "2+ anos",
+    experience: "4+ anos",
   },
   {
     name: "MySQL",
@@ -117,10 +117,10 @@ const languages = [
       </svg>
     ),
     description: "Banco de dados relacional",
-    level: "Intermediário",
+    level: "Avançado",
     gradient: "from-orange-400/20 to-red-500/20",
     borderColor: "border-orange-400/30",
-    experience: "2+ anos",
+    experience: "4+ anos",
   },
   {
     name: "Python",
@@ -164,11 +164,11 @@ const languages = [
         </defs>
       </svg>
     ),
-    description: "Automação e análise",
+    description: "Automação, análise e Modelagem",
     level: "Intermediário",
     gradient: "from-green-400/20 to-blue-500/20",
     borderColor: "border-green-400/30",
-    experience: "1+ ano",
+    experience: "2+ ano",
   },
   {
     name: "C",
@@ -201,14 +201,40 @@ const languages = [
       </svg>
     ),
     description: "Programação de sistemas",
-    level: "Básico",
+    level: "Avançado",
     gradient: "from-gray-400/20 to-gray-600/20",
     borderColor: "border-gray-400/30",
-    experience: "1 ano",
+    experience: "4 anos",
   },
 ]
 
 const courses = [
+  {
+    title: "Técnico em Informática",
+    institution: "ETEC",
+    duration: "3 Anos",
+    year: "2018-2020",
+    description: "Ensino médio integrado ao técnico com enfase em manutenção de computadores e introdução a programação",
+    skills: ["PHP", "Banco de Dados", "HTML", "CSS"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Concluído",
+    gradient: "from-pink-500/20 to-purple-500/20",
+    borderColor: "border-pink-400/30",
+    icon: "🎨",
+  },
+  {
+    title: "Engenharia da Computação",
+    institution: "UNIFEI",
+    duration: "5 Anos",
+    year: "2021 - 2025",
+    description: "Faculdade em engenharia da computação",
+    skills: ["C", "Java", "Python", "IA", "Modelagem", "UML", "Banco de Dados"],
+    certificate: "https://certificado.exemplo.com",
+    status: "Em Andamento",
+    gradient: "from-blue-500/20 to-cyan-500/20",
+    borderColor: "border-blue-400/30",
+    icon: "📱",
+  },
   {
     title: "Desenvolvimento Web Full Stack",
     institution: "Rocketseat",
@@ -222,6 +248,8 @@ const courses = [
     borderColor: "border-purple-400/30",
     icon: "🚀",
   },
+]
+{/*
   {
     title: "JavaScript Moderno (ES6+)",
     institution: "Udemy",
@@ -234,32 +262,6 @@ const courses = [
     gradient: "from-yellow-500/20 to-orange-500/20",
     borderColor: "border-yellow-400/30",
     icon: "⚡",
-  },
-  {
-    title: "React Native - Mobile Development",
-    institution: "Alura",
-    duration: "3 meses",
-    year: "2024",
-    description: "Desenvolvimento de aplicativos móveis com React Native e Expo",
-    skills: ["React Native", "Expo", "Mobile UI", "APIs"],
-    certificate: "https://certificado.exemplo.com",
-    status: "Concluído",
-    gradient: "from-blue-500/20 to-cyan-500/20",
-    borderColor: "border-blue-400/30",
-    icon: "📱",
-  },
-  {
-    title: "UI/UX Design Fundamentals",
-    institution: "Coursera",
-    duration: "2 meses",
-    year: "2024",
-    description: "Princípios de design de interface e experiência do usuário",
-    skills: ["Figma", "Design Systems", "Prototyping", "User Research"],
-    certificate: "https://certificado.exemplo.com",
-    status: "Concluído",
-    gradient: "from-pink-500/20 to-purple-500/20",
-    borderColor: "border-pink-400/30",
-    icon: "🎨",
   },
   {
     title: "DevOps e Cloud Computing",
@@ -287,7 +289,7 @@ const courses = [
     borderColor: "border-indigo-400/30",
     icon: "🤖",
   },
-]
+*/}
 
 const timeline = [
   {
