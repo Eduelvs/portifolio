@@ -2,8 +2,6 @@
 
 import { motion } from "framer-motion"
 import {
-  Camera,
-  Edit3,
   MapPin,
   Calendar,
   Mail,
@@ -25,11 +23,11 @@ import { useTheme } from "next-themes"
 import Link from "next/link"
 
 const skills = [
-  { name: "React", level: 90, color: "bg-blue-500" },
-  { name: "TypeScript", level: 85, color: "bg-blue-600" },
-  { name: "Next.js", level: 88, color: "bg-gray-800" },
-  { name: "Node.js", level: 80, color: "bg-green-600" },
-  { name: "Python", level: 75, color: "bg-yellow-500" },
+  { name: "Database", level: 90, color: "bg-blue-500" },
+  { name: "C", level: 85, color: "bg-red-600" },
+  { name: "Python", level: 88, color: "bg-gray-800" },
+  { name: "React", level: 80, color: "bg-green-600" },
+  { name: "BI", level: 90, color: "bg-yellow-500" },
   { name: "UI/UX Design", level: 70, color: "bg-purple-500" },
 ]
 
@@ -146,16 +144,56 @@ export function ProfilePage() {
             <CardContent className="p-8 relative z-10">
               <div className="flex flex-col md:flex-row items-start gap-6">
                 <div className="relative">
-                  <Avatar className="w-32 h-32 border-4 border-border/40">
-                    <AvatarImage src="/foto_perfil.jpg" alt="Profile" />
-                    <AvatarFallback className="text-2xl">ED</AvatarFallback>
-                  </Avatar>
-                  <Button
-                    size="sm"
-                    className="absolute -bottom-2 -right-2 rounded-full w-10 h-10 p-0 bg-primary hover:bg-primary/90"
+                  <motion.div
+                    className="relative"
+                    whileHover={{
+                      scale: 1.15,
+                      boxShadow: "0 0 40px rgba(59, 130, 246, 0.6), 0 0 80px rgba(147, 51, 234, 0.3)",
+                      borderRadius: "50%",
+                    }}
+                    transition={{ duration: 0.4, ease: "easeOut" }}
                   >
-                    <Camera className="h-4 w-4" />
-                  </Button>
+                    {/* Anel animado externo */}
+                    <motion.div
+                      className="absolute -inset-4 rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30"
+                      animate={{
+                        rotate: 360,
+                      }}
+                      transition={{
+                        duration: 8,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "linear",
+                      }}
+                    />
+
+                    {/* Anel pulsante interno */}
+                    <motion.div
+                      className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20"
+                      animate={{
+                        scale: [1, 1.2, 1],
+                        opacity: [0.5, 0.8, 0.5],
+                      }}
+                      transition={{
+                        duration: 3,
+                        repeat: Number.POSITIVE_INFINITY,
+                        ease: "easeInOut",
+                      }}
+                    />
+
+                    {/* Avatar com brilho */}
+                    <motion.div
+                      className="relative"
+                      whileHover={{
+                        boxShadow: "0 0 30px rgba(59, 130, 246, 0.5)",
+                      }}
+                      transition={{ duration: 0.3 }}
+                    >
+                      <Avatar className="w-32 h-32 border-2 border-border/40 relative z-10">
+                        <AvatarImage src="/foto_perfil.jpg" alt="Profile" />
+                        <AvatarFallback className="text-2xl">ED</AvatarFallback>
+                      </Avatar>
+                    </motion.div>
+                  </motion.div>
                 </div>
 
                 <div className="flex-1 space-y-4">
@@ -165,10 +203,6 @@ export function ProfilePage() {
                       <p className="text-xl text-muted-foreground">Full Stack Developer</p>
                     </div>
                     <div className="flex gap-2">
-                      <Button variant="outline" className="gap-2">
-                        <Edit3 className="h-4 w-4" />
-                        Editar Perfil
-                      </Button>
                       <Button
                         className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                         onClick={() => {
@@ -186,7 +220,9 @@ export function ProfilePage() {
                   </div>
 
                   <p className="text-muted-foreground max-w-2xl">
-                    Sou Eduardo Alves Carvalho, estudante de Engenharia da Computação na UNIFEI e Técnico em Informática pela ETEC. Atuo como desenvolvedor full stack, com experiência em React, Node.js, PostgreSQL/PostGIS e soluções com Power BI, IA e machine learning em Python.
+                    Sou Eduardo Alves Carvalho, estudante de Engenharia da Computação na UNIFEI e Técnico em Informática
+                    pela ETEC. Atuo como desenvolvedor full stack, com experiência em React, Node.js, PostgreSQL/PostGIS
+                    e soluções com Power BI, IA e machine learning em Python.
                   </p>
 
                   <div className="flex flex-wrap gap-4 text-sm text-muted-foreground">
@@ -205,7 +241,7 @@ export function ProfilePage() {
                   </div>
 
                   <div className="flex gap-3">
-                    <Link  href="https://github.com/Eduelvs">
+                    <Link href="https://github.com/Eduelvs">
                       <Button variant="ghost" size="sm" className="p-2">
                         <Github className="h-4 w-4" />
                       </Button>
@@ -232,7 +268,7 @@ export function ProfilePage() {
           </Card>
         </motion.div>
 
-        <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
+        <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
           {/* Skills Section */}
           <motion.div variants={itemVariants} className="lg:col-span-1">
             <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg mb-6">
@@ -356,34 +392,34 @@ export function ProfilePage() {
               </CardContent>
             </Card>
           </motion.div>
-        </div>
 
-        {/* Stats Section */}
-        <motion.div variants={itemVariants} className="mt-8">
-          <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-            {[
-              { label: "Projetos", value: "24", icon: "📁" },
-              { label: "Commits", value: "1,247", icon: "💻" },
-              { label: "Seguidores", value: "892", icon: "👥" },
-              { label: "Estrelas", value: "156", icon: "⭐" },
-            ].map((stat, index) => (
-              <motion.div
-                key={stat.label}
-                initial={{ opacity: 0, scale: 0.9 }}
-                animate={{ opacity: 1, scale: 1 }}
-                transition={{ delay: index * 0.1 }}
-                whileHover={{ scale: 1.05 }}
-              >
-                <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
-                  <CardContent className="p-4 text-center">
-                    <div className="text-2xl mb-2">{stat.icon}</div>
-                    <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                    <div className="text-sm text-muted-foreground">{stat.label}</div>
-                  </CardContent>
-                </Card>
-              </motion.div>
-            ))}
-          </div>
+          {/* Stats Section */}
+          <motion.div variants={itemVariants} className="mt-8">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
+              {[
+                { label: "Projetos", value: "21", icon: "📁" },
+                { label: "Commits", value: "168", icon: "💻" },
+                { label: "Seguidores", value: "2", icon: "👥" },
+                { label: "Estrelas", value: "2", icon: "⭐" },
+              ].map((stat, index) => (
+                <motion.div
+                  key={stat.label}
+                  initial={{ opacity: 0, scale: 0.9 }}
+                  animate={{ opacity: 1, scale: 1 }}
+                  transition={{ delay: index * 0.1 }}
+                  whileHover={{ scale: 1.05 }}
+                >
+                  <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
+                    <CardContent className="p-4 text-center">
+                      <div className="text-2xl mb-2">{stat.icon}</div>
+                      <div className="text-2xl font-bold text-foreground">{stat.value}</div>
+                      <div className="text-sm text-muted-foreground">{stat.label}</div>
+                    </CardContent>
+                  </Card>
+                </motion.div>
+              ))}
+            </div>
+          </motion.div>
         </motion.div>
       </motion.div>
     </div>
