@@ -145,54 +145,67 @@ export function ProfilePage() {
               <div className="flex flex-col md:flex-row items-start gap-6">
                 <div className="relative">
                   <motion.div
-                    className="relative"
+                    className="relative flex flex-col items-center"
                     whileHover={{
-                      scale: 1.15,
-                      boxShadow: "0 0 40px rgba(59, 130, 246, 0.6), 0 0 80px rgba(147, 51, 234, 0.3)",
-                      borderRadius: "50%",
+                      scale: 1.05,
                     }}
-                    transition={{ duration: 0.4, ease: "easeOut" }}
+                    transition={{ duration: 0.3 }}
                   >
-                    {/* Anel animado externo */}
-                    <motion.div
-                      className="absolute -inset-4 rounded-full bg-gradient-to-r from-blue-500/30 via-purple-500/30 to-pink-500/30"
-                      animate={{
-                        rotate: 360,
-                      }}
-                      transition={{
-                        duration: 8,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "linear",
-                      }}
-                    />
-
-                    {/* Anel pulsante interno */}
-                    <motion.div
-                      className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20"
-                      animate={{
-                        scale: [1, 1.2, 1],
-                        opacity: [0.5, 0.8, 0.5],
-                      }}
-                      transition={{
-                        duration: 3,
-                        repeat: Number.POSITIVE_INFINITY,
-                        ease: "easeInOut",
-                      }}
-                    />
-
-                    {/* Avatar com brilho */}
-                    <motion.div
-                      className="relative"
-                      whileHover={{
-                        boxShadow: "0 0 30px rgba(59, 130, 246, 0.5)",
-                      }}
-                      transition={{ duration: 0.3 }}
-                    >
+                    {/* Avatar com efeito de respiração */}
+                    <div className="relative">
+                      <motion.div
+                        className="absolute -inset-2 rounded-full bg-gradient-to-r from-blue-400/20 to-purple-400/20"
+                        animate={{
+                          scale: [1, 1.1, 1],
+                          opacity: [0.5, 0.8, 0.5],
+                        }}
+                        transition={{
+                          duration: 3,
+                          repeat: Number.POSITIVE_INFINITY,
+                          ease: "easeInOut",
+                        }}
+                      />
                       <Avatar className="w-32 h-32 border-2 border-border/40 relative z-10">
                         <AvatarImage src="/foto_perfil.jpg" alt="Profile" />
                         <AvatarFallback className="text-2xl">ED</AvatarFallback>
                       </Avatar>
-                    </motion.div>
+                    </div>
+                  </motion.div>
+
+                  {/* Stats estilo Instagram */}
+                  <motion.div
+                    className="flex justify-center gap-8 mt-6"
+                    initial={{ opacity: 0, y: 20 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ delay: 0.4, duration: 0.6 }}
+                  >
+                    {[
+                      { value: "21", label: "projetos", emoji: "📁" },
+                      { value: "168", label: "commits", emoji: "💻" },
+                      { value: "2", label: "estrelas", emoji: "⭐" },
+                    ].map((stat, index) => (
+                      <motion.div
+                        key={stat.label}
+                        className="text-center relative group"
+                        initial={{ opacity: 0, scale: 0.8 }}
+                        animate={{ opacity: 1, scale: 1 }}
+                        transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
+                        whileHover={{ scale: 1.1, y: -2 }}
+                      >
+                        <div className="text-lg font-bold text-foreground">{stat.value}</div>
+                        <div className="text-xs text-muted-foreground">{stat.label}</div>
+
+                        {/* Emoji que aparece no hover */}
+                        <motion.div
+                          className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-2xl opacity-0 group-hover:opacity-100"
+                          initial={{ opacity: 0, y: 10 }}
+                          whileHover={{ opacity: 1, y: 0 }}
+                          transition={{ duration: 0.2 }}
+                        >
+                          {stat.emoji}
+                        </motion.div>
+                      </motion.div>
+                    ))}
                   </motion.div>
                 </div>
 
@@ -391,34 +404,6 @@ export function ProfilePage() {
                 </div>
               </CardContent>
             </Card>
-          </motion.div>
-
-          {/* Stats Section */}
-          <motion.div variants={itemVariants} className="mt-8">
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-4">
-              {[
-                { label: "Projetos", value: "21", icon: "📁" },
-                { label: "Commits", value: "168", icon: "💻" },
-                { label: "Seguidores", value: "2", icon: "👥" },
-                { label: "Estrelas", value: "2", icon: "⭐" },
-              ].map((stat, index) => (
-                <motion.div
-                  key={stat.label}
-                  initial={{ opacity: 0, scale: 0.9 }}
-                  animate={{ opacity: 1, scale: 1 }}
-                  transition={{ delay: index * 0.1 }}
-                  whileHover={{ scale: 1.05 }}
-                >
-                  <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
-                    <CardContent className="p-4 text-center">
-                      <div className="text-2xl mb-2">{stat.icon}</div>
-                      <div className="text-2xl font-bold text-foreground">{stat.value}</div>
-                      <div className="text-sm text-muted-foreground">{stat.label}</div>
-                    </CardContent>
-                  </Card>
-                </motion.div>
-              ))}
-            </div>
           </motion.div>
         </motion.div>
       </motion.div>
