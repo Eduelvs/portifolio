@@ -33,24 +33,24 @@ const skills = [
 
 const projects = [
   {
-    title: "E-commerce Platform",
-    description: "Full-stack e-commerce solution with React and Node.js",
-    tech: ["React", "Node.js", "MongoDB"],
-    status: "Completed",
-    gradient: "from-blue-500/20 to-purple-500/20",
-  },
-  {
-    title: "Task Management App",
-    description: "Collaborative task management with real-time updates",
-    tech: ["Next.js", "Socket.io", "PostgreSQL"],
-    status: "In Progress",
+    title: "Dashboard em Power BI",
+    description: "Relatório completo em PowerBI",
+    tech: ["Power BI", "Docker"],
+    status: "Finalizado",
     gradient: "from-green-500/20 to-blue-500/20",
   },
   {
-    title: "AI Chat Interface",
-    description: "Modern chat interface with AI integration",
-    tech: ["React", "OpenAI API", "Tailwind"],
-    status: "Planning",
+    title: "eVento",
+    description: "TCC da Faculdade, Plataforma de Gerência de eventos",
+    tech: ["Next.js", "Laravel", "MySQL"],
+    status: "Em Andamento",
+    gradient: "from-blue-500/20 to-purple-500/20",
+  },
+  {
+    title: "Jogo em Python",
+    description: "Jogo simples em Python utilizando a biblioteca Tkinter",
+    tech: ["Python", "UI", "TCL/TK"],
+    status: "Planejado",
     gradient: "from-orange-500/20 to-red-500/20",
   },
 ]
@@ -379,9 +379,9 @@ export function ProfilePage() {
                           <h3 className="font-semibold text-foreground">{project.title}</h3>
                           <Badge
                             variant={
-                              project.status === "Completed"
+                              project.status === "Finalizado"
                                 ? "default"
-                                : project.status === "In Progress"
+                                : project.status === "Em Andamento"
                                   ? "secondary"
                                   : "outline"
                             }

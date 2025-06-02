@@ -27,35 +27,39 @@ interface Project {
 const projects: Project[] = [
   {
     id: 1,
-    title: "E-commerce Platform",
-    description: "Plataforma completa de e-commerce com painel administrativo",
+    title: "Hora de Aventura",
+    description: "Aplicação Completa",
     longDescription:
-      "Sistema completo de e-commerce desenvolvido com React e Node.js, incluindo carrinho de compras, sistema de pagamento, painel administrativo para gerenciamento de produtos, pedidos e usuários. Implementa autenticação JWT, integração com APIs de pagamento e dashboard com métricas em tempo real.",
-    image: "/placeholder.svg?height=200&width=400",
-    technologies: ["React", "Node.js", "MongoDB", "Stripe", "JWT"],
-    category: "Web Development",
+      "Modelagem de Classes, Banco de Dados, Telas e Funcionalidades, Utilizando Java com a biblioteca SpringBot",
+    image: "/hora_aventura.png",
+    technologies: ["Java", "Database", "SpringBot"],
+    category: "Aplicação em Java",
     status: "Concluído",
-    date: "2024-01",
-    githubUrl: "https://github.com/usuario/ecommerce",
-    liveUrl: "https://ecommerce-demo.com",
+    date: "2023-01",
+    githubUrl: "https://github.com/Eduelvs/Projeto-com-SpringBot",
+    //liveUrl: "https://ecommerce-demo.com",
     gradient: "from-blue-500/20 to-purple-500/20",
     borderColor: "border-blue-400/30",
   },
   {
     id: 2,
-    title: "Task Management App",
-    description: "Aplicativo colaborativo de gerenciamento de tarefas",
+    title: "BLE.h",
+    description: "Compilador",
     longDescription:
-      "Aplicação web para gerenciamento de tarefas em equipe com funcionalidades de colaboração em tempo real. Inclui sistema de notificações, drag-and-drop para organização de tarefas, comentários, anexos e relatórios de produtividade. Desenvolvido com Next.js e Socket.io para atualizações em tempo real.",
-    image: "/placeholder.svg?height=200&width=400",
-    technologies: ["Next.js", "Socket.io", "PostgreSQL", "Prisma", "Tailwind"],
-    category: "Productivity",
-    status: "Em Desenvolvimento",
+      "Desenvolvimento de uma linguagem BLE.h, compilada e convertida em python, 100% Funcional",
+    image: "/preg.png",
+    technologies: ["Python", "BLE.h", "Compilador"],
+    category: "Compilador",
+    status: "Concluído",
     date: "2024-02",
-    githubUrl: "https://github.com/usuario/task-manager",
+    githubUrl: "https://github.com/Eduelvs/Desenvolvimento-de-um-Compilador",
     gradient: "from-green-500/20 to-blue-500/20",
     borderColor: "border-green-400/30",
   },
+
+
+]
+{/*
   {
     id: 3,
     title: "AI Chat Interface",
@@ -117,7 +121,7 @@ const projects: Project[] = [
     gradient: "from-yellow-500/20 to-orange-500/20",
     borderColor: "border-yellow-400/30",
   },
-]
+*/}
 
 const containerVariants = {
   hidden: { opacity: 0 },
