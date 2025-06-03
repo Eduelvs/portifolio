@@ -553,50 +553,75 @@ export function HomePage() {
             <p className="text-muted-foreground">Uma linha do tempo da minha evolução como desenvolvedor</p>
           </div>
 
-          <div className="relative">
-            {/* Timeline Line */}
-            <div className="absolute top-1/2 left-0 right-0 h-1 bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 rounded-full transform -translate-y-1/2" />
+          <div className="relative flex flex-col md:block">
+            {/* Linha da Timeline */}
+            <div
+              className="
+        absolute
+        left-1/2 top-0
+        w-1 h-full
+        bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 rounded-full
+        -translate-x-1/2
+        md:left-0 md:top-1/2 md:w-full md:h-1 md:bg-gradient-to-r md:from-blue-500 md:via-purple-500 md:to-green-500 md:rounded-full md:-translate-x-0 md:-translate-y-1/2
+        z-0
+      "
+            />
 
-            {/* Timeline Items */}
-            <div className="flex justify-between items-center relative">
-              {timeline.map((item, index) => (
-                <motion.div
-                  key={item.year}
-                  className="flex flex-col items-center cursor-pointer group"
-                  onClick={() => setSelectedTimelineItem(index)}
-                  whileHover={{ scale: 1.1 }}
-                  whileTap={{ scale: 0.95 }}
-                >
-                  {/* Timeline Point */}
+            {/* Itens da Timeline */}
+            <div className="flex flex-col md:flex-row items-center md:justify-between gap-12 md:gap-0 relative z-10">
+              {timeline.map((item, index) => {
+                const isEven = index % 2 === 0;
+
+                return (
                   <motion.div
-                    className={`w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg mb-4 relative z-10 ${
-                      selectedTimelineItem === index ? "ring-4 ring-white/50" : ""
-                    }`}
-                    animate={{
-                      scale: selectedTimelineItem === index ? 1.2 : 1,
-                    }}
-                    transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    key={item.year}
+                    className={`
+              flex cursor-pointer group relative 
+              flex-col-reverse md:flex-col 
+              ${isEven ? "items-start md:items-center" : "items-end md:items-center"}
+            `}
+                    onClick={() => setSelectedTimelineItem(index)}
+                    whileHover={{ scale: 1.1 }}
+                    whileTap={{ scale: 0.95 }}
                   >
-                    {item.icon}
-                  </motion.div>
+                    {/* Título */}
+                    <motion.div
+                      className={`
+                text-xs text-muted-foreground max-w-24 text-center mb-2
+                ${isEven ? "text-left md:text-center" : "text-right md:text-center"}
+              `}
+                      animate={{ opacity: selectedTimelineItem === index ? 1 : 0.7 }}
+                    >
+                      {item.title}
+                    </motion.div>
 
-                  {/* Year */}
-                  <div className="text-sm font-bold text-foreground mb-2">{item.year}</div>
+                    {/* Ponto da timeline */}
+                    <motion.div
+                      className={`w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg mb-4 relative z-10 ${
+                        selectedTimelineItem === index ? "ring-4 ring-white/50" : ""
+                      }`}
+                      animate={{
+                        scale: selectedTimelineItem === index ? 1.2 : 1,
+                      }}
+                      transition={{ type: "spring", stiffness: 300, damping: 20 }}
+                    >
+                      {item.icon}
+                    </motion.div>
 
-                  {/* Title (visible on hover or selection) */}
-                  <motion.div
-                    className="text-xs text-center text-muted-foreground max-w-20"
-                    animate={{
-                      opacity: selectedTimelineItem === index ? 1 : 0.7,
-                    }}
-                  >
-                    {item.title}
+                    {/* Ano */}
+                    <div
+                      className={`text-sm font-bold text-foreground ${
+                        isEven ? "text-left md:text-center" : "text-right md:text-center"
+                      }`}
+                    >
+                      {item.year}
+                    </div>
                   </motion.div>
-                </motion.div>
-              ))}
+                );
+              })}
             </div>
 
-            {/* Selected Item Details */}
+            {/* Detalhes do Item Selecionado */}
             <motion.div
               className="mt-12"
               key={selectedTimelineItem}

@@ -9,7 +9,10 @@ const whatsappUrl = `https://wa.me/${whatsappNumber}?text=${encodeURIComponent(m
 export function WhatsAppButton() {
   return (
     <motion.div
-      className="fixed bottom-6 right-6 z-50"
+      className="
+        fixed bottom-6 left-4 z-50
+        sm:bottom-6 sm:right-4 sm:left-auto
+      "
       initial={{ scale: 0, opacity: 0 }}
       animate={{ scale: 1, opacity: 1 }}
       transition={{ delay: 1, type: "spring", stiffness: 260, damping: 20 }}
@@ -18,14 +21,14 @@ export function WhatsAppButton() {
         href={whatsappUrl}
         target="_blank"
         rel="noopener noreferrer"
-        className="group relative flex items-center justify-center w-14 h-14 bg-green-500 hover:bg-green-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden"
+        className="group relative flex items-center justify-center w-11 h-11 bg-green-500 hover:bg-green-600 rounded-full shadow-lg transition-all duration-300 overflow-hidden"
         whileHover={{ scale: 1.1 }}
         whileTap={{ scale: 0.95 }}
         animate={{
           boxShadow: [
-            "0 4px 20px rgba(34, 197, 94, 0.3)",
-            "0 4px 30px rgba(34, 197, 94, 0.5)",
-            "0 4px 20px rgba(34, 197, 94, 0.3)",
+            "0 2px 10px rgba(34, 197, 94, 0.3)",
+            "0 2px 16px rgba(34, 197, 94, 0.5)",
+            "0 2px 10px rgba(34, 197, 94, 0.3)",
           ],
         }}
         transition={{
@@ -34,8 +37,8 @@ export function WhatsAppButton() {
       >
         {/* WhatsApp Icon SVG */}
         <svg
-          width="28"
-          height="28"
+          width="20"
+          height="20"
           viewBox="0 0 24 24"
           fill="none"
           xmlns="http://www.w3.org/2000/svg"

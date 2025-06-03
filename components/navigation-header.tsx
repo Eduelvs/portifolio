@@ -27,7 +27,7 @@ const menuItems: MenuItem[] = [
   },
   {
     icon: <Bell className="h-5 w-5" />,
-    label: "Projetos",
+    label: "Projeto",
     href: "/projects",
     gradient: "radial-gradient(circle, rgba(249,115,22,0.15) 0%, rgba(234,88,12,0.06) 50%, rgba(194,65,12,0) 100%)",
     iconColor: "text-orange-500",
@@ -105,10 +105,46 @@ export function NavigationHeader() {
   const isDarkTheme = theme === "dark"
 
   return (
-    <header className="fixed top-0 left-0 right-0 z-50 flex justify-center p-4">
-      <div className="flex items-center gap-4">
+    <header
+      className="
+        fixed
+        top-0 left-0 right-0
+        z-50 flex justify-center p-4
+        sm:top-0 sm:left-0 sm:right-0
+        sm:bottom-auto
+        sm:flex-row
+        sm:justify-center
+        sm:items-center
+        sm:p-4
+        bottom-0 w-full
+        flex-row
+        items-end
+        p-2
+        sm:rounded-none
+        bg-transparent
+        sm:bg-transparent
+        pointer-events-none
+        sm:pointer-events-auto
+      "
+    >
+      <div
+        className="
+          flex items-center gap-4
+          sm:flex-row
+          flex-row
+          w-full
+          max-w-2xl
+          justify-between
+          sm:justify-center
+          pointer-events-auto
+        "
+      >
         {/* Avatar Profile */}
-        <motion.div className="relative" whileHover="hover" initial="initial">
+        <motion.div
+          className="relative hidden sm:block"
+          whileHover="hover"
+          initial="initial"
+        >
           <motion.div
             className={`absolute -inset-1 bg-gradient-to-r ${
               isDarkTheme
@@ -135,8 +171,48 @@ export function NavigationHeader() {
           </Link>
         </motion.div>
 
+        {/* Avatar para mobile */}
+        <motion.div
+          className="relative sm:hidden"
+          whileHover="hover"
+          initial="initial"
+        >
+          <motion.div
+            className={`absolute -inset-1 bg-gradient-to-r ${
+              isDarkTheme
+                ? "from-blue-400/40 via-purple-400/40 to-pink-400/40"
+                : "from-blue-400/30 via-purple-400/30 to-pink-400/30"
+            } rounded-full z-0 pointer-events-none`}
+            variants={avatarGlowVariants}
+          />
+          <Link href="/profile" className="relative z-10 block">
+            <motion.div
+              className="w-10 h-10 rounded-full overflow-hidden bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-2 border-border/40 shadow-lg relative"
+              whileHover={{ scale: 1.05 }}
+              whileTap={{ scale: 0.95 }}
+            >
+              <Image
+                src="/foto_perfil.jpg"
+                alt="Eduardo - Foto de Perfil"
+                width={40}
+                height={40}
+                className="w-full h-full object-cover"
+                priority
+              />
+            </motion.div>
+          </Link>
+        </motion.div>
+
         <motion.nav
-          className="p-2 rounded-2xl bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden"
+          className="
+            p-2 rounded-2xl
+            bg-gradient-to-b from-background/95 to-background/80
+            backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden
+            w-full
+            sm:w-auto
+            flex-1
+            mx-2
+          "
           initial="initial"
           whileHover="hover"
         >
@@ -148,11 +224,16 @@ export function NavigationHeader() {
             } to-transparent rounded-3xl z-0 pointer-events-none`}
             variants={navGlowVariants}
           />
-          <ul className="flex items-center justify-center gap-2 relative z-10">
+          <ul
+            className="
+              flex items-center justify-between gap-2 relative z-10
+              sm:justify-center
+            "
+          >
             {menuItems.map((item, index) => {
               const isActive = pathname === item.href
               return (
-                <motion.li key={item.label} className="relative">
+                <motion.li key={item.label} className="relative flex-1">
                   <motion.div
                     className="block rounded-xl overflow-visible group relative"
                     style={{ perspective: "600px" }}
@@ -169,33 +250,43 @@ export function NavigationHeader() {
                       }}
                     />
                     <motion.div
-                      className={`flex items-center gap-2 px-4 py-2 relative z-10 rounded-xl transition-colors ${
-                        isActive
+                      className={`
+                        flex items-center gap-2 px-2 py-2 sm:px-4
+                        relative z-10 rounded-xl transition-colors
+                        justify-center
+                        text-xs sm:text-base
+                        ${isActive
                           ? "bg-primary/10 text-foreground"
                           : "bg-transparent text-muted-foreground group-hover:text-foreground"
-                      }`}
+                        }
+                      `}
                       variants={itemVariants}
                       transition={sharedTransition}
                       style={{ transformStyle: "preserve-3d", transformOrigin: "center bottom" }}
                     >
-                      <Link href={item.href} className="flex items-center gap-2">
+                      <Link href={item.href} className="flex items-center gap-1 sm:gap-2">
                         <span
                           className={`transition-colors duration-300 ${isActive ? item.iconColor : "text-foreground"}`}
                         >
                           {item.icon}
                         </span>
-                        <span>{item.label}</span>
+                        <span className="hidden sm:inline">{item.label}</span>
                       </Link>
                     </motion.div>
                     <motion.div
-                      className="flex items-center gap-2 px-4 py-2 absolute inset-0 z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl"
+                      className="
+                        flex items-center gap-2 px-2 py-2 sm:px-4
+                        absolute inset-0 z-10 bg-transparent text-muted-foreground group-hover:text-foreground transition-colors rounded-xl
+                        justify-center
+                        text-xs sm:text-base
+                      "
                       variants={backVariants}
                       transition={sharedTransition}
                       style={{ transformStyle: "preserve-3d", transformOrigin: "center top", rotateX: 90 }}
                     >
-                      <Link href={item.href} className="flex items-center gap-2">
+                      <Link href={item.href} className="flex items-center gap-1 sm:gap-2">
                         <span className="transition-colors duration-300 text-foreground">{item.icon}</span>
-                        <span>{item.label}</span>
+                        <span className="hidden sm:inline">{item.label}</span>
                       </Link>
                     </motion.div>
                   </motion.div>
@@ -207,7 +298,36 @@ export function NavigationHeader() {
 
         {/* Theme Toggle Button with enhanced styling */}
         <motion.div
-          className="p-2 rounded-full bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden"
+          className="
+            p-2 rounded-full
+            bg-gradient-to-b from-background/95 to-background/80
+            backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden
+            hidden sm:block
+          "
+          whileHover={{ scale: 1.05 }}
+          whileTap={{ scale: 0.95 }}
+        >
+          <motion.div
+            className={`absolute -inset-2 bg-gradient-radial from-transparent ${
+              isDarkTheme
+                ? "via-yellow-400/30 via-30% via-purple-400/30 via-60%"
+                : "via-blue-400/20 via-30% via-purple-400/20 via-60%"
+            } to-transparent rounded-full z-0 pointer-events-none opacity-0`}
+            animate={{ opacity: [0, 1, 0] }}
+            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
+          />
+          <div className="relative z-10">
+            <ThemeToggle />
+          </div>
+        </motion.div>
+        {/* Botão de tema para mobile */}
+        <motion.div
+          className="
+            p-2 rounded-full
+            bg-gradient-to-b from-background/95 to-background/80
+            backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden
+            sm:hidden
+          "
           whileHover={{ scale: 1.05 }}
           whileTap={{ scale: 0.95 }}
         >
