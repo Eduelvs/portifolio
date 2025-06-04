@@ -1,30 +1,53 @@
-# Glow menu component
+# Portfólio Profissional
 
-*Automatically synced with your [v0.dev](https://v0.dev) deployments*
+Este projeto é um portfólio pessoal que utiliza um componente de menu com efeito "glow" (brilho) e inclui um botão flutuante para contato via WhatsApp. O objetivo é apresentar habilidades, projetos e facilitar o contato de forma moderna e interativa.
 
-[![Deployed on Vercel](https://img.shields.io/badge/Deployed%20on-Vercel-black?style=for-the-badge&logo=vercel)](https://vercel.com/eduelvs-projects/v0-glow-menu-component)
-[![Built with v0](https://img.shields.io/badge/Built%20with-v0.dev-black?style=for-the-badge)](https://v0.dev/chat/projects/LI8uYBEv6ha)
+## Funcionalidades
 
-## Overview
+- **Menu Glow:** Menu de navegação com efeito de brilho.
+- **Botão do WhatsApp:** Botão fixo para contato rápido, visível apenas em telas desktop.
+- **Responsivo:** Layout adaptado para diferentes tamanhos de tela.
+- **Deploy automático:** Integração com Vercel para deploy contínuo.
 
-This repository will stay in sync with your deployed chats on [v0.dev](https://v0.dev).
-Any changes you make to your deployed app will be automatically pushed to this repository from [v0.dev](https://v0.dev).
+## Demonstração
 
-## Deployment
+Acesse o projeto online:  
+[Portifólio](eduelvs.vercel.app)
 
-Your project is live at:
+## Instalação
 
-**[https://vercel.com/eduelvs-projects/v0-glow-menu-component](https://vercel.com/eduelvs-projects/v0-glow-menu-component)**
+1. Clone o repositório:
+   ```bash
+   git clone https://github.com/seu-usuario/seu-repo.git
+   cd seu-repo
+   ```
+2. Instale as dependências:
+   ```bash
+   npm install
+   ```
+3. Rode o projeto localmente:
+   ```bash
+   npm run dev
+   ```
 
-## Build your app
+## Estrutura
 
-Continue building your app on:
+- `/components`: Componentes reutilizáveis (menu, botão WhatsApp, etc).
+- `/pages` ou `/app`: Páginas principais do portfólio.
+- `README.md`: Este arquivo.
 
-**[https://v0.dev/chat/projects/LI8uYBEv6ha](https://v0.dev/chat/projects/LI8uYBEv6ha)**
+## Como contribuir
 
-## How It Works
+1. Faça um fork do projeto.
+2. Crie uma branch para sua feature (`git checkout -b minha-feature`).
+3. Commit suas alterações (`git commit -m 'Minha feature'`).
+4. Faça um push para o seu fork (`git push origin minha-feature`).
+5. Abra um Pull Request.
 
-1. Create and modify your project using [v0.dev](https://v0.dev)
-2. Deploy your chats from the v0 interface
-3. Changes are automatically pushed to this repository
-4. Vercel deploys the latest version from this repository
+## Licença
+
+Este projeto está sob a licença MIT.
+
+---
+
+Desenvolvido por Eduardo Alves Carvalho(https://github.com/Eduelvs).
