@@ -12,7 +12,7 @@ Este projeto é um portfólio pessoal que utiliza um componente de menu com efei
 ## Demonstração
 
 Acesse o projeto online:  
-[Portifólio](eduelvs.vercel.app)
+[Portifólio](http://eduelvs.vercel.app)
 
 ## Instalação
 
