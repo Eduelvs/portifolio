@@ -17,18 +17,18 @@ Acesse o projeto online:
 ## Instalação
 
 1. Clone o repositório:
-   ```bash
+   \`\`\`bash
    git clone https://github.com/seu-usuario/seu-repo.git
    cd seu-repo
-   ```
+   \`\`\`
 2. Instale as dependências:
-   ```bash
+   \`\`\`bash
    npm install
-   ```
+   \`\`\`
 3. Rode o projeto localmente:
-   ```bash
+   \`\`\`bash
    npm run dev
-   ```
+   \`\`\`
 
 ## Estrutura
 
