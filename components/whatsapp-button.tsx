@@ -10,6 +10,7 @@ export function WhatsAppButton() {
   return (
     <motion.div
       className="
+        hidden sm:flex
         fixed bottom-6 left-4 z-50
         sm:bottom-6 sm:right-4 sm:left-auto
       "
