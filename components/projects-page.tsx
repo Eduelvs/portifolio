@@ -1,12 +1,12 @@
 "use client"
 
-import { motion } from "framer-motion"
-import { useState } from "react"
-import { Grid3X3, List, ExternalLink, Github, Calendar, Tag } from "lucide-react"
-import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { motion } from "framer-motion"
+import { Calendar, ExternalLink, Github, Grid3X3, List, Tag } from "lucide-react"
 import { useTheme } from "next-themes"
+import { useState } from "react"
 
 interface Project {
   id: number
@@ -37,7 +37,6 @@ const projects: Project[] = [
     status: "Concluído",
     date: "2023-01",
     githubUrl: "https://github.com/Eduelvs/Projeto-com-Java-Swing",
-    //liveUrl: "https://ecommerce-demo.com",
     gradient: "from-blue-500/20 to-purple-500/20",
     borderColor: "border-blue-400/30",
   },
@@ -56,72 +55,50 @@ const projects: Project[] = [
     gradient: "from-green-500/20 to-blue-500/20",
     borderColor: "border-green-400/30",
   },
-
-
-]
-{/*
   {
     id: 3,
-    title: "AI Chat Interface",
-    description: "Interface moderna para chat com inteligência artificial",
-    longDescription:
-      "Interface de chat intuitiva e moderna para interação com modelos de IA. Suporta múltiplas conversas, histórico persistente, formatação de código, upload de arquivos e integração com diferentes provedores de IA. Desenvolvido com foco na experiência do usuário e performance.",
-    image: "/placeholder.svg?height=200&width=400",
-    technologies: ["React", "OpenAI API", "Tailwind", "Framer Motion"],
-    category: "AI/ML",
+    title: "eVento",
+    description: "TCC da Faculdade, Plataforma de Gerência de eventos",
+    longDescription: "Plataforma de Gerência de eventos, utilizando Laravel e MySQL",
+    image: "/evento.png",
+    technologies: ["Next.js", "Laravel", "MySQL", "IBM Quantum"],
+    category: "TCC",
     status: "Concluído",
-    date: "2024-03",
-    githubUrl: "https://github.com/usuario/ai-chat",
-    liveUrl: "https://ai-chat-demo.com",
-    gradient: "from-orange-500/20 to-red-500/20",
-    borderColor: "border-orange-400/30",
+    date: "2025-12",
+    liveUrl: "https://evento.up.railway.app",
+    gradient: "from-red-500/20 to-purple-500/20",
+    borderColor: "border-red-400/30",
   },
   {
     id: 4,
-    title: "Portfolio Website",
-    description: "Site pessoal com design moderno e animações",
-    longDescription:
-      "Website pessoal desenvolvido com Next.js e Framer Motion, apresentando projetos, habilidades e experiências profissionais. Inclui sistema de temas (claro/escuro), animações suaves, design responsivo e otimização para SEO. Integrado com CMS headless para fácil atualização de conteúdo.",
-    image: "/placeholder.svg?height=200&width=400",
-    technologies: ["Next.js", "Framer Motion", "Tailwind", "MDX"],
-    category: "Portfolio",
-    status: "Concluído",
-    date: "2024-04",
-    githubUrl: "https://github.com/usuario/portfolio",
-    liveUrl: "https://meuportfolio.com",
-    gradient: "from-purple-500/20 to-pink-500/20",
-    borderColor: "border-purple-400/30",
+    title: "Saas ChatBot",
+    description: "Saas de ChatBot para empresas",
+    longDescription: "Saas de ChatBot para empresas, utilizando React e Node.js",
+    image: "/saas.png",
+    technologies: ["React", "Node.js", "PostgreSQL"],
+    category: "Saas",
+    status: "Em Desenvolvimento",
+    date: "2026-06",
+    liveUrl: "https://saas-chatbot-pi.vercel.app",
+    gradient: "from-teal-500/20 to-yellow-500/20",
+    borderColor: "border-green-400/30",
   },
   {
     id: 5,
-    title: "Weather Dashboard",
-    description: "Dashboard meteorológico com previsões detalhadas",
-    longDescription:
-      "Dashboard completo para visualização de dados meteorológicos com previsões de 7 dias, mapas interativos, alertas climáticos e histórico de dados. Integra múltiplas APIs meteorológicas e apresenta os dados através de gráficos e visualizações interativas.",
-    image: "/placeholder.svg?height=200&width=400",
-    technologies: ["Vue.js", "Chart.js", "Weather API", "Leaflet"],
-    category: "Data Visualization",
-    status: "Planejado",
-    date: "2024-05",
-    gradient: "from-cyan-500/20 to-blue-500/20",
-    borderColor: "border-cyan-400/30",
-  },
-  {
-    id: 6,
-    title: "Expense Tracker",
-    description: "Aplicativo para controle de gastos pessoais",
-    longDescription:
-      "Aplicação para controle financeiro pessoal com categorização automática de gastos, relatórios detalhados, metas de economia e sincronização entre dispositivos. Inclui gráficos interativos, exportação de dados e notificações inteligentes para ajudar no controle financeiro.",
-    image: "/placeholder.svg?height=200&width=400",
-    technologies: ["React Native", "Firebase", "Chart.js", "AsyncStorage"],
-    category: "Mobile App",
+    title: "Dashboard Services",
+    description: "Dashboard de Serviços",
+    longDescription: "Dashboard de Serviços, utilizando React e Node.js",
+    image: "/dashboard.png",
+    technologies: ["React", "Node.js", "PostgreSQL"],
+    category: "Dashboard",
     status: "Em Desenvolvimento",
-    date: "2024-06",
-    githubUrl: "https://github.com/usuario/expense-tracker",
-    gradient: "from-yellow-500/20 to-orange-500/20",
-    borderColor: "border-yellow-400/30",
+    date: "2026-03",
+    liveUrl: "https://dashboard-services-iota.vercel.app",
+    gradient: "from-indigo-500/20 to-sky-500/20",
+    borderColor: "border-indigo-400/30",
   },
-*/}
+
+]
 
 const containerVariants = {
   hidden: { opacity: 0 },

@@ -1,13 +1,13 @@
 "use client"
 
-import type * as React from "react"
 import { motion } from "framer-motion"
-import { Home, Settings, Bell, User } from "lucide-react"
+import { Bell, Home, Settings, User } from "lucide-react"
 import { useTheme } from "next-themes"
-import { usePathname } from "next/navigation"
-import Link from "next/link"
-import { ThemeToggle } from "./theme-toggle"
 import Image from "next/image"
+import Link from "next/link"
+import { usePathname } from "next/navigation"
+import type * as React from "react"
+import { ThemeToggle } from "./theme-toggle"
 
 interface MenuItem {
   icon: React.ReactNode
@@ -156,8 +156,8 @@ export function NavigationHeader() {
           <Link href="/profile" className="relative z-10 block">
             <motion.div
               className="w-12 h-12 rounded-full overflow-hidden bg-gradient-to-b from-background/95 to-background/80 backdrop-blur-lg border-2 border-border/40 shadow-lg relative"
-              whileHover={{ scale: 1.05 }}
-              whileTap={{ scale: 0.95 }}
+              whileHover={{ scale: 1 }}
+              whileTap={{ scale: 1 }}
             >
               <Image
                 src="/foto_perfil.jpg"

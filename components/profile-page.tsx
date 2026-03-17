@@ -1,26 +1,29 @@
 "use client"
 
-import { motion } from "framer-motion"
-import {
-  MapPin,
-  Calendar,
-  Mail,
-  Globe,
-  Github,
-  Linkedin,
-  Twitter,
-  Heart,
-  Users,
-  Lightbulb,
-  Target,
-  Download,
-} from "lucide-react"
+import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent } from "@/components/ui/card"
-import { Badge } from "@/components/ui/badge"
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
+import { motion } from "framer-motion"
+import {
+  Calendar,
+  Download,
+  ExternalLink,
+  Github,
+  Globe,
+  Heart,
+  Lightbulb,
+  Linkedin,
+  Mail,
+  MapPin,
+  Target,
+  Twitter,
+  Users,
+} from "lucide-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
+import { useEffect, useState } from "react"
+
+const GITHUB_USERNAME = "Eduelvs"
 
 const skills = [
   { name: "Database", level: 90, color: "bg-blue-500" },
@@ -31,6 +34,7 @@ const skills = [
   { name: "UI/UX Design", level: 70, color: "bg-purple-500" },
 ]
 
+
 const projects = [
   {
     title: "Dashboard em Power BI",
@@ -38,20 +42,23 @@ const projects = [
     tech: ["Power BI", "Docker"],
     status: "Finalizado",
     gradient: "from-green-500/20 to-blue-500/20",
+    url: "https://dashboard-services-iota.vercel.app",
   },
   {
     title: "eVento",
     description: "TCC da Faculdade, Plataforma de Gerência de eventos",
     tech: ["Next.js", "Laravel", "MySQL"],
-    status: "Em Andamento",
+    status: "Finalizado",
     gradient: "from-blue-500/20 to-purple-500/20",
+    url: "https://evento.up.railway.app",
   },
   {
-    title: "Jogo em Python",
-    description: "Jogo simples em Python utilizando a biblioteca Tkinter",
-    tech: ["Python", "UI", "TCL/TK"],
-    status: "Planejado",
+    title: "Saas ChatBot",
+    description: "Saas de ChatBot para empresas",
+    tech: ["React", "Node.js", "PostgreSQL"],
+    status: "Desenvolvimento",
     gradient: "from-orange-500/20 to-red-500/20",
+    url: "https://saas-chatbot-pi.vercel.app",
   },
 ]
 
@@ -124,6 +131,55 @@ const glowVariants = {
 export function ProfilePage() {
   const { theme } = useTheme()
   const isDarkTheme = theme === "dark"
+  const [selectedProject, setSelectedProject] = useState(projects[0]?.title ?? "")
+
+  const [githubStats, setGithubStats] = useState({
+    projects: 0,
+    commits: 0,
+    followers: 0,
+    loading: true,
+  })
+
+  useEffect(() => {
+    let cancelled = false
+    const headers: HeadersInit = { Accept: "application/vnd.github.v3+json" }
+
+    async function fetchGitHubStats() {
+      try {
+        const userRes = await fetch(`https://api.github.com/users/${GITHUB_USERNAME}`, { headers })
+        if (cancelled) return
+        if (!userRes.ok) throw new Error("GitHub API error")
+
+        const user = await userRes.json()
+        const publicRepos = user.public_repos ?? 0
+        const followers = user.followers ?? 0
+
+        let commits = 0
+        try {
+          const commitsRes = await fetch(
+            `https://api.github.com/search/commits?q=author:${GITHUB_USERNAME}`,
+            { headers: { ...headers, Accept: "application/vnd.github.cloak-preview+json" } }
+          )
+          if (commitsRes.ok) {
+            const data = await commitsRes.json()
+            commits = data.total_count ?? 0
+          }
+        } catch {
+          // Search/commits pode falhar por rate limit ou auth; mantém 0
+        }
+
+        if (!cancelled) {
+          setGithubStats({ projects: publicRepos, commits, followers, loading: false })
+        }
+      } catch {
+        if (!cancelled) {
+          setGithubStats((prev) => ({ ...prev, loading: false }))
+        }
+      }
+    }
+    fetchGitHubStats()
+    return () => { cancelled = true }
+  }, [])
 
   return (
     <div className="min-h-screen bg-background p-4 md:p-8">
@@ -180,9 +236,9 @@ export function ProfilePage() {
                     transition={{ delay: 0.4, duration: 0.6 }}
                   >
                     {[
-                      { value: "21", label: "projetos", emoji: "📁" },
-                      { value: "168", label: "commits", emoji: "💻" },
-                      { value: "2", label: "estrelas", emoji: "⭐" },
+                      { value: githubStats.loading ? "—" : String(githubStats.projects), label: "projetos", emoji: "📁" },
+                      { value: githubStats.loading ? "—" : String(githubStats.commits), label: "commits", emoji: "💻" },
+                      { value: githubStats.loading ? "—" : String(githubStats.followers), label: "seguidores", emoji: "👥" },
                     ].map((stat, index) => (
                       <motion.div
                         key={stat.label}
@@ -192,7 +248,7 @@ export function ProfilePage() {
                         transition={{ delay: 0.5 + index * 0.1, duration: 0.4 }}
                         whileHover={{ scale: 1.1, y: -2 }}
                       >
-                        <div className="text-lg font-bold text-foreground">{stat.value}</div>
+                        <div className="text-lg font-bold text-foreground tabular-nums">{stat.value}</div>
                         <div className="text-xs text-muted-foreground">{stat.label}</div>
 
                         {/* Emoji que aparece no hover */}
@@ -357,50 +413,72 @@ export function ProfilePage() {
             </Card>
           </motion.div>
 
-          {/* Projects Section */}
+          {/* Preview dos Projetos */}
           <motion.div variants={itemVariants} className="lg:col-span-2">
-            <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
-              <CardContent className="p-6">
-                <h2 className="text-xl font-semibold mb-4 text-foreground">Projetos Recentes</h2>
-                <div className="space-y-4">
-                  {projects.map((project, index) => (
-                    <motion.div
-                      key={project.title}
-                      className="relative group"
-                      initial={{ opacity: 0, y: 20 }}
-                      animate={{ opacity: 1, y: 0 }}
-                      transition={{ delay: index * 0.1 }}
-                      whileHover={{ scale: 1.02 }}
-                    >
-                      <div
-                        className={`p-4 rounded-lg bg-gradient-to-r ${project.gradient} border border-border/20 hover:border-border/40 transition-all duration-300`}
-                      >
-                        <div className="flex justify-between items-start mb-2">
-                          <h3 className="font-semibold text-foreground">{project.title}</h3>
-                          <Badge
-                            variant={
-                              project.status === "Finalizado"
-                                ? "default"
-                                : project.status === "Em Andamento"
-                                  ? "secondary"
-                                  : "outline"
-                            }
-                            className="text-xs"
-                          >
-                            {project.status}
-                          </Badge>
-                        </div>
-                        <p className="text-sm text-muted-foreground mb-3">{project.description}</p>
-                        <div className="flex flex-wrap gap-2">
-                          {project.tech.map((tech) => (
-                            <Badge key={tech} variant="outline" className="text-xs">
-                              {tech}
-                            </Badge>
-                          ))}
-                        </div>
+            <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg overflow-hidden">
+              <CardContent className="p-0">
+                <div className="p-5 pb-0">
+                  <h2 className="text-xl font-semibold mb-1 text-foreground">Preview dos Projetos</h2>
+                  <p className="text-sm text-muted-foreground mb-4">
+                    Selecione um projeto para visualizar
+                  </p>
+                  <div className="flex flex-wrap gap-2">
+                    {projects.map((project) => {
+                      const isSelected = selectedProject === project.title
+                      return (
+                        <motion.button
+                          key={project.title}
+                          type="button"
+                          onClick={() => setSelectedProject(project.title)}
+                          className={`relative px-4 py-2.5 rounded-xl text-sm font-medium transition-all duration-200 border ${
+                            isSelected
+                              ? `bg-gradient-to-r ${project.gradient} border-border/60 shadow-md text-foreground`
+                              : "bg-muted/50 border-border/30 text-muted-foreground hover:bg-muted hover:text-foreground hover:border-border/50"
+                          }`}
+                          whileHover={{ scale: 1.02 }}
+                          whileTap={{ scale: 0.98 }}
+                        >
+                          {project.title}
+                        </motion.button>
+                      )
+                    })}
+                  </div>
+                  {(() => {
+                    const current = projects.find((p) => p.title === selectedProject)
+                    if (!current) return null
+                    return (
+                      <div className="mt-4 flex flex-wrap items-center gap-3 text-sm">
+                        <p className="text-muted-foreground">{current.description}</p>
+                        <a
+                          href={current.url}
+                          target="_blank"
+                          rel="noopener noreferrer"
+                          className="inline-flex items-center gap-1.5 text-primary hover:underline"
+                        >
+                          <ExternalLink className="h-4 w-4" />
+                          Abrir em nova aba
+                        </a>
                       </div>
-                    </motion.div>
-                  ))}
+                    )
+                  })()}
+                </div>
+                <div className="relative mt-4 mx-4 mb-4 rounded-xl overflow-hidden border border-border/40 bg-muted/20 shadow-inner">
+                  <div className="absolute inset-0 bg-gradient-to-b from-transparent via-transparent to-muted/20 pointer-events-none z-10 rounded-xl" />
+                  <div className="w-full h-[480px] min-h-[320px] overflow-hidden rounded-xl" style={{ position: "relative" }}>
+                    <iframe
+                      key={selectedProject}
+                      src={projects.find((p) => p.title === selectedProject)?.url ?? ""}
+                      className="rounded-xl origin-top-left"
+                      title={selectedProject}
+                      style={{
+                        width: `${100 / 0.3}%`,
+                        height: `${480 / 0.3}px`,
+                        minHeight: `${320 / 0.3}px`,
+                        transform: `scale(${0.3})`,
+                        transformOrigin: "top left",
+                      }}
+                    />
+                  </div>
                 </div>
               </CardContent>
             </Card>
