@@ -97,6 +97,20 @@ const projects: Project[] = [
     gradient: "from-indigo-500/20 to-sky-500/20",
     borderColor: "border-indigo-400/30",
   },
+  {
+    id: 6,
+    title: "Portifolio Larissa Tofanello",
+    description: "Portifolio da Larissa Tofanello, utilizando Next.js",
+    longDescription: "Portifolio da Larissa Tofanello, utilizando Next.js",
+    image: "/portifolio-larissa.png",
+    technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
+    category: "Portifolio",
+    status: "Concluído",
+    date: "2026-03",
+    liveUrl: "https://v0-larissatofanello.vercel.app",
+    gradient: "from-yellow-500/20 to-orange-500/20",
+    borderColor: "border-yellow-400/30",
+  },
 
 ]
 

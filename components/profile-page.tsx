@@ -37,11 +37,11 @@ const skills = [
 
 const projects = [
   {
-    title: "Dashboard em Power BI",
-    description: "Relatório completo em PowerBI",
-    tech: ["Power BI", "Docker"],
-    status: "Finalizado",
-    gradient: "from-green-500/20 to-blue-500/20",
+    title: "Dashboard de Serviços",
+    description: "Dashboard de Serviços, utilizando React e Node.js",
+    tech: ["React", "Node.js", "PostgreSQL"],
+    status: "Desenvolvimento",
+    gradient: "from-orange-500/20 to-red-500/20",
     url: "https://dashboard-services-iota.vercel.app",
   },
   {
@@ -59,6 +59,14 @@ const projects = [
     status: "Desenvolvimento",
     gradient: "from-orange-500/20 to-red-500/20",
     url: "https://saas-chatbot-pi.vercel.app",
+  },
+  {
+    title: "Portifolio Larissa Tofanello",
+    description: "Portifolio da Larissa Tofanello, utilizando Next.js",
+    tech: ["Next.js", "Tailwind CSS", "TypeScript"],
+    status: "Finalizado",
+    gradient: "from-green-500/20 to-blue-500/20",
+    url: "https://v0-larissatofanello.vercel.app",
   },
 ]
 
