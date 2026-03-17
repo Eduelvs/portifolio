@@ -12,6 +12,7 @@ import {
   Code,
   Coffee,
   ExternalLink,
+  Eye,
   Globe,
   GraduationCap,
   Heart,
@@ -21,7 +22,7 @@ import {
 } from "lucide-react"
 import { useTheme } from "next-themes"
 import Link from "next/link"
-import { useRef, useState } from "react"
+import { useEffect, useRef, useState } from "react"
 
 const languages = [
   {
@@ -386,6 +387,44 @@ const glowVariants = {
       ease: "easeOut",
     },
   },
+}
+
+const VISIT_COUNTER_NAMESPACE = "eduelvs-portfolio"
+const VISIT_COUNTER_KEY = "visitas"
+const VISIT_COUNTER_API = "https://abacus.jasoncameron.dev"
+
+function VisitCounter() {
+  const [total, setTotal] = useState<number | null>(null)
+
+  useEffect(() => {
+    fetch(`${VISIT_COUNTER_API}/hit/${VISIT_COUNTER_NAMESPACE}/${VISIT_COUNTER_KEY}`)
+      .then((res) => res.json())
+      .then((data) => setTotal(data.value ?? null))
+      .catch(() => setTotal(null))
+  }, [])
+
+  if (total === null) return null
+
+  return (
+    <motion.div
+      className="flex justify-center py-8"
+      initial={{ opacity: 0, y: 8 }}
+      animate={{ opacity: 1, y: 0 }}
+      transition={{ duration: 0.4 }}
+    >
+      <div className="inline-flex items-center gap-3 rounded-2xl border border-border/40 bg-gradient-to-r from-muted/40 to-muted/20 px-5 py-3 shadow-sm">
+        <div className="flex h-9 w-9 items-center justify-center rounded-xl bg-primary/10">
+          <Eye className="h-4 w-4 text-primary" />
+        </div>
+        <div className="flex items-baseline gap-2">
+          <span className="text-sm text-muted-foreground">Visitantes</span>
+          <span className="text-lg font-bold tabular-nums text-foreground">
+            {total.toLocaleString("pt-BR")}
+          </span>
+        </div>
+      </div>
+    </motion.div>
+  )
 }
 
 export function HomePage() {
@@ -780,6 +819,8 @@ export function HomePage() {
             </CardContent>
           </Card>
         </motion.section>
+
+        <VisitCounter />
       </motion.div>
     </div>
   )
