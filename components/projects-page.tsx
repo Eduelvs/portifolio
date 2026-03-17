@@ -111,6 +111,20 @@ const projects: Project[] = [
     gradient: "from-yellow-500/20 to-orange-500/20",
     borderColor: "border-yellow-400/30",
   },
+  {
+    id: 7,
+    title: "Brasildle",
+    description: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
+    longDescription: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
+    image: "/brasildle.png",
+    technologies: ["React", "Vite", "Tailwind CSS"],
+    category: "Jogo",
+    status: "Concluído",
+    date: "2026-03",
+    liveUrl: "https://brasildle.vercel.app",
+    gradient: "from-green-500/20 to-blue-500/20",
+    borderColor: "border-green-400/30",
+  },
 
 ]
 

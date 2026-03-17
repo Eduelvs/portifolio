@@ -68,6 +68,14 @@ const projects = [
     gradient: "from-green-500/20 to-blue-500/20",
     url: "https://v0-larissatofanello.vercel.app",
   },
+  {
+    title: "Brasildle",
+    description: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
+    tech: ["React", "Vite", "Tailwind CSS"],
+    status: "Finalizado",
+    gradient: "from-green-500/20 to-blue-500/20",
+    url: "https://brasildle.vercel.app",
+  },
 ]
 
 const personalityTraits = [
