@@ -1,14 +1,14 @@
 "use client"
 
 import { motion } from "framer-motion"
-import { Bell, Home, Settings, User } from "lucide-react"
+import { Bell, Home, Phone, User } from "lucide-react"
 import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type * as React from "react"
 import { ThemeToggle } from "./theme-toggle"
-
+import { Variants , Transition} from "framer-motion"
 interface MenuItem {
   icon: React.ReactNode
   label: string
@@ -33,7 +33,7 @@ const menuItems: MenuItem[] = [
     iconColor: "text-orange-500",
   },
   {
-    icon: <Settings className="h-5 w-5" />,
+    icon: <Phone className="h-5 w-5" />,
     label: "Contato",
     href: "/contact",
     gradient: "radial-gradient(circle, rgba(34,197,94,0.15) 0%, rgba(22,163,74,0.06) 50%, rgba(21,128,61,0) 100%)",
@@ -112,17 +112,13 @@ export function NavigationHeader() {
         z-50 flex justify-center p-4
         sm:top-0 sm:left-0 sm:right-0
         sm:bottom-auto
-        sm:flex-row
-        sm:justify-center
         sm:items-center
-        sm:p-4
         bottom-0 w-full
         flex-row
         items-end
         p-2
         sm:rounded-none
         bg-transparent
-        sm:bg-transparent
         pointer-events-none
         sm:pointer-events-auto
       "
@@ -130,7 +126,6 @@ export function NavigationHeader() {
       <div
         className="
           flex items-center gap-4
-          sm:flex-row
           flex-row
           w-full
           max-w-2xl
@@ -151,7 +146,7 @@ export function NavigationHeader() {
                 ? "from-blue-400/40 via-purple-400/40 to-pink-400/40"
                 : "from-blue-400/30 via-purple-400/30 to-pink-400/30"
             } rounded-full z-0 pointer-events-none`}
-            variants={avatarGlowVariants}
+            variants={avatarGlowVariants as unknown as Variants}
           />
           <Link href="/profile" className="relative z-10 block">
             <motion.div
@@ -183,7 +178,7 @@ export function NavigationHeader() {
                 ? "from-blue-400/40 via-purple-400/40 to-pink-400/40"
                 : "from-blue-400/30 via-purple-400/30 to-pink-400/30"
             } rounded-full z-0 pointer-events-none`}
-            variants={avatarGlowVariants}
+            variants={avatarGlowVariants as unknown as Variants}
           />
           <Link href="/profile" className="relative z-10 block">
             <motion.div
@@ -209,9 +204,8 @@ export function NavigationHeader() {
             bg-gradient-to-b from-background/95 to-background/80
             backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden
             w-full
-            sm:w-auto
+            sm:w-full
             flex-1
-            mx-2
           "
           initial="initial"
           whileHover="hover"
@@ -222,7 +216,7 @@ export function NavigationHeader() {
                 ? "via-blue-400/30 via-30% via-purple-400/30 via-60% via-red-400/30 via-90%"
                 : "via-blue-400/20 via-30% via-purple-400/20 via-60% via-red-400/20 via-90%"
             } to-transparent rounded-3xl z-0 pointer-events-none`}
-            variants={navGlowVariants}
+            variants={navGlowVariants as unknown as Variants}
           />
           <ul
             className="
@@ -242,7 +236,7 @@ export function NavigationHeader() {
                   >
                     <motion.div
                       className="absolute inset-0 z-0 pointer-events-none"
-                      variants={glowVariants}
+                      variants={glowVariants as Variants}
                       style={{
                         background: item.gradient,
                         opacity: isActive ? 0.3 : 0,
@@ -261,7 +255,7 @@ export function NavigationHeader() {
                         }
                       `}
                       variants={itemVariants}
-                      transition={sharedTransition}
+                      transition={sharedTransition as Transition}
                       style={{ transformStyle: "preserve-3d", transformOrigin: "center bottom" }}
                     >
                       <Link href={item.href} className="flex items-center gap-1 sm:gap-2">
@@ -281,7 +275,7 @@ export function NavigationHeader() {
                         text-xs sm:text-base
                       "
                       variants={backVariants}
-                      transition={sharedTransition}
+                      transition={sharedTransition as Transition}
                       style={{ transformStyle: "preserve-3d", transformOrigin: "center top", rotateX: 90 }}
                     >
                       <Link href={item.href} className="flex items-center gap-1 sm:gap-2">

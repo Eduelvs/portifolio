@@ -14,7 +14,7 @@ export function ThemeToggle() {
   return (
     <div className="flex items-center space-x-2 transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)]">
       <Sun
-        className={`h-[1.2rem] w-[1.2rem] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
+        className={`lg:h-[24px] lg:w-[24px] sm:h-[8px] sm:w-[8px] transition-all duration-700 ease-[cubic-bezier(0.34,1.56,0.64,1)] ${
           theme === "dark" ? "text-[#A1A1AA] scale-75 rotate-12" : "text-yellow-500 scale-100 rotate-0"
         }`}
       />

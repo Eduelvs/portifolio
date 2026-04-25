@@ -23,6 +23,7 @@ import {
 import { useTheme } from "next-themes"
 import Link from "next/link"
 import { useEffect, useRef, useState } from "react"
+import { Variants } from "framer-motion"
 
 const languages = [
   {
@@ -462,7 +463,7 @@ export function HomePage() {
     <div ref={containerRef} className="max-w-6xl mx-auto px-4 py-8">
       <motion.div variants={containerVariants} initial="hidden" animate="visible">
         {/* Hero Section */}
-        <motion.section variants={itemVariants} className="text-center mb-16">
+        <motion.section variants={itemVariants as Variants} className="text-center mb-16">
           <div className="relative inline-block mb-8">
             <motion.div
               className={`absolute -inset-4 bg-gradient-radial from-transparent ${
@@ -470,7 +471,7 @@ export function HomePage() {
                   ? "via-blue-400/30 via-30% via-purple-400/30 via-60% via-pink-400/30 via-90%"
                   : "via-blue-400/20 via-30% via-purple-400/20 via-60% via-pink-400/20 via-90%"
               } to-transparent rounded-full pointer-events-none`}
-              variants={glowVariants}
+              variants={glowVariants as Variants}
               whileHover="hover"
               initial="initial"
             />
@@ -541,7 +542,7 @@ export function HomePage() {
         </motion.section>
 
         {/* About Section */}
-        <motion.section variants={itemVariants} className="mb-16" style={{ y: aboutY }}>
+        <motion.section variants={itemVariants as Variants} className="mb-16" style={{ y: aboutY }}>
           <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
             <motion.div
               className={`absolute -inset-2 bg-gradient-radial from-transparent ${
@@ -549,7 +550,7 @@ export function HomePage() {
                   ? "via-green-400/20 via-30% via-blue-400/20 via-60% via-purple-400/20 via-90%"
                   : "via-green-400/10 via-30% via-blue-400/10 via-60% via-purple-400/10 via-90%"
               } to-transparent rounded-3xl pointer-events-none`}
-              variants={glowVariants}
+              variants={glowVariants as Variants}
               whileHover="hover"
               initial="initial"
             />
@@ -566,48 +567,49 @@ export function HomePage() {
         </motion.section>
 
         {/* Timeline Section */}
-        <motion.section variants={itemVariants} className="mb-16" style={{ y: timelineY }}>
+        <motion.section variants={itemVariants as Variants} className="mb-16" style={{ y: timelineY }}>
           <div className="text-center mb-12">
             <h2 className="text-3xl font-bold text-foreground mb-4">Minha Jornada</h2>
             <p className="text-muted-foreground">Uma linha do tempo da minha evolução como desenvolvedor</p>
           </div>
 
-          <div className="relative flex flex-col md:block">
+          <div className="relative">
             {/* Linha da Timeline */}
             <div
               className="
-        absolute
-        left-1/2 top-0
-        w-1 h-full
-        bg-gradient-to-b from-blue-500 via-purple-500 to-green-500 rounded-full
-        -translate-x-1/2
-        md:left-0 md:top-1/2 md:w-full md:h-1 md:bg-gradient-to-r md:from-blue-500 md:via-purple-500 md:to-green-500 md:rounded-full md:-translate-x-0 md:-translate-y-1/2
+        hidden md:block absolute
+        left-0 top-1/2 w-full h-1
+        bg-gradient-to-r from-blue-500 via-purple-500 to-green-500 rounded-full
+        -translate-y-1/2
         z-0
       "
             />
 
-            {/* Itens da Timeline */}
-            <div className="flex flex-col md:flex-row items-center md:justify-between gap-12 md:gap-0 relative z-10">
-              {timeline.map((item, index) => {
-                const isEven = index % 2 === 0;
+            <p className="text-center text-xs text-muted-foreground mb-4 md:hidden">
+              Toque em um marco para atualizar os detalhes abaixo
+            </p>
 
+            {/* Itens da Timeline */}
+            <div className="flex md:flex-row items-stretch md:items-center md:justify-between gap-3 md:gap-0 overflow-x-auto md:overflow-visible pb-2 md:pb-0 relative z-10 snap-x">
+              {timeline.map((item, index) => {
                 return (
                   <motion.div
                     key={item.year}
                     className={`
-              flex cursor-pointer group relative 
-              flex-col-reverse md:flex-col 
-              ${isEven ? "items-start md:items-center" : "items-end md:items-center"}
+              flex flex-col items-center text-center gap-2
+              min-w-[150px] md:min-w-0 md:w-auto px-3 py-3 md:px-0 md:py-0
+              rounded-xl md:rounded-none border border-border/40 md:border-transparent
+              cursor-pointer group relative snap-start
+              ${selectedTimelineItem === index ? "bg-muted/40 border-primary/40" : "bg-transparent"}
             `}
                     onClick={() => setSelectedTimelineItem(index)}
-                    whileHover={{ scale: 1.1 }}
+                    whileHover={{ scale: 1.05 }}
                     whileTap={{ scale: 0.95 }}
                   >
                     {/* Título */}
                     <motion.div
                       className={`
-                text-xs text-muted-foreground max-w-24 text-center mb-2
-                ${isEven ? "text-left md:text-center" : "text-right md:text-center"}
+                text-xs text-muted-foreground max-w-24 md:mb-2
               `}
                       animate={{ opacity: selectedTimelineItem === index ? 1 : 0.7 }}
                     >
@@ -616,7 +618,7 @@ export function HomePage() {
 
                     {/* Ponto da timeline */}
                     <motion.div
-                      className={`w-16 h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg mb-4 relative z-10 ${
+                      className={`w-14 h-14 md:w-16 md:h-16 rounded-full bg-gradient-to-r ${item.color} flex items-center justify-center text-white shadow-lg z-10 md:mb-4 ${
                         selectedTimelineItem === index ? "ring-4 ring-white/50" : ""
                       }`}
                       animate={{
@@ -628,13 +630,15 @@ export function HomePage() {
                     </motion.div>
 
                     {/* Ano */}
-                    <div
-                      className={`text-sm font-bold text-foreground ${
-                        isEven ? "text-left md:text-center" : "text-right md:text-center"
-                      }`}
-                    >
+                    <div className="text-sm font-bold text-foreground">
                       {item.year}
                     </div>
+
+                    {selectedTimelineItem === index && (
+                      <span className="text-[10px] text-primary font-medium md:hidden">
+                        Detalhes abaixo
+                      </span>
+                    )}
                   </motion.div>
                 );
               })}
@@ -683,7 +687,7 @@ export function HomePage() {
         </motion.section>
 
         {/* Education & Courses Section */}
-        <motion.section variants={itemVariants} className="mb-16" style={{ y: coursesY }}>
+        <motion.section variants={itemVariants as Variants} className="mb-16" style={{ y: coursesY }}>
           <div className="relative">
             <h2 className="text-3xl font-bold text-center mb-12 text-foreground relative z-10">
               <GraduationCap className="inline-block w-8 h-8 mr-3 mb-1" />
@@ -694,7 +698,7 @@ export function HomePage() {
               {courses.map((course, index) => (
                 <motion.div
                   key={course.title}
-                  variants={cardVariants}
+                  variants={cardVariants as Variants}
                   initial="hidden"
                   animate="visible"
                   whileHover="hover"
@@ -751,14 +755,14 @@ export function HomePage() {
         </motion.section>
 
         {/* Languages Section */}
-        <motion.section variants={itemVariants} className="mb-16" style={{ y: languagesY }}>
+        <motion.section variants={itemVariants as Variants} className="mb-16" style={{ y: languagesY }}>
           <h2 className="text-3xl font-bold text-center mb-12 text-foreground">Minhas Linguagens & Tecnologias</h2>
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
             {languages.map((language, index) => (
               <motion.div
                 key={language.name}
-                variants={cardVariants}
+                variants={cardVariants as Variants}
                 initial="hidden"
                 animate="visible"
                 whileHover="hover"
@@ -800,7 +804,7 @@ export function HomePage() {
         </motion.section>
 
         {/* Call to Action */}
-        <motion.section variants={itemVariants} className="text-center" style={{ y: ctaY }}>
+        <motion.section variants={itemVariants as Variants} className="text-center" style={{ y: ctaY }}>
           <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
             <CardContent className="p-8">
               <h2 className="text-2xl font-bold text-foreground mb-4">Vamos trabalhar juntos?</h2>

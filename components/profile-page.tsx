@@ -22,6 +22,7 @@ import {
 import { useTheme } from "next-themes"
 import Link from "next/link"
 import { useEffect, useState } from "react"
+import { Variants } from "framer-motion"
 
 const GITHUB_USERNAME = "Eduelvs"
 
@@ -75,6 +76,14 @@ const projects = [
     status: "Finalizado",
     gradient: "from-green-500/20 to-blue-500/20",
     url: "https://brasildle.vercel.app",
+  },
+  {
+    title: "Password Manager",
+    description: "Gerenciador de senhas, utilizando NestJS e Next.js",
+    tech: ["NestJS", "PostgreSQL", "Next.js", "TypeScript", "Tailwind CSS"],
+    status: "Finalizado",
+    gradient: "from-green-500/20 to-blue-500/20",
+    url: "https://eduelvs.up.railway.app",
   },
 ]
 
@@ -201,7 +210,7 @@ export function ProfilePage() {
     <div className="min-h-screen bg-background p-4 md:p-8">
       <motion.div className="max-w-6xl mx-auto" variants={containerVariants} initial="hidden" animate="visible">
         {/* Header Section */}
-        <motion.div variants={itemVariants}>
+        <motion.div variants={itemVariants as Variants}>
           <Card className="relative overflow-hidden border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
             <motion.div
               className={`absolute -inset-2 bg-gradient-radial from-transparent ${
@@ -209,15 +218,15 @@ export function ProfilePage() {
                   ? "via-blue-400/20 via-30% via-purple-400/20 via-60% via-pink-400/20 via-90%"
                   : "via-blue-400/10 via-30% via-purple-400/10 via-60% via-pink-400/10 via-90%"
               } to-transparent rounded-3xl pointer-events-none`}
-              variants={glowVariants}
+              variants={glowVariants as Variants}
               whileHover="hover"
               initial="initial"
             />
             <CardContent className="p-8 relative z-10">
               <div className="flex flex-col md:flex-row items-start gap-6">
-                <div className="relative">
+                <div className="relative w-full lg:w-auto">
                   <motion.div
-                    className="relative flex flex-col items-center"
+                    className="flex flex-col items-center w-full lg:w-auto justify-center"
                     whileHover={{
                       scale: 1.05,
                     }}
@@ -252,9 +261,9 @@ export function ProfilePage() {
                     transition={{ delay: 0.4, duration: 0.6 }}
                   >
                     {[
-                      { value: githubStats.loading ? "—" : String(githubStats.projects), label: "projetos", emoji: "📁" },
-                      { value: githubStats.loading ? "—" : String(githubStats.commits), label: "commits", emoji: "💻" },
-                      { value: githubStats.loading ? "—" : String(githubStats.followers), label: "seguidores", emoji: "👥" },
+                      { value: githubStats.loading ? "—" : String(githubStats.projects), label: "projetos"},
+                      { value: githubStats.loading ? "—" : String(githubStats.commits), label: "commits"},
+                      { value: githubStats.loading ? "—" : String(githubStats.followers), label: "seguidores"},
                     ].map((stat, index) => (
                       <motion.div
                         key={stat.label}
@@ -266,16 +275,6 @@ export function ProfilePage() {
                       >
                         <div className="text-lg font-bold text-foreground tabular-nums">{stat.value}</div>
                         <div className="text-xs text-muted-foreground">{stat.label}</div>
-
-                        {/* Emoji que aparece no hover */}
-                        <motion.div
-                          className="absolute -top-8 left-1/2 transform -translate-x-1/2 text-2xl opacity-0 group-hover:opacity-100"
-                          initial={{ opacity: 0, y: 10 }}
-                          whileHover={{ opacity: 1, y: 0 }}
-                          transition={{ duration: 0.2 }}
-                        >
-                          {stat.emoji}
-                        </motion.div>
                       </motion.div>
                     ))}
                   </motion.div>
@@ -291,7 +290,6 @@ export function ProfilePage() {
                       <Button
                         className="gap-2 bg-gradient-to-r from-blue-600 to-purple-600 hover:from-blue-700 hover:to-purple-700"
                         onClick={() => {
-                          // Simular download do currículo
                           const link = document.createElement("a")
                           link.href = "/curriculo-eduardo-alves.pdf"
                           link.download = "Curriculo-Eduardo-Alves-Carvalho.pdf"
@@ -355,7 +353,7 @@ export function ProfilePage() {
 
         <motion.div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mt-8">
           {/* Skills Section */}
-          <motion.div variants={itemVariants} className="lg:col-span-1">
+          <motion.div variants={itemVariants as Variants} className="lg:col-span-1">
             <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg mb-6">
               <CardContent className="p-6">
                 <h2 className="text-xl font-semibold mb-4 text-foreground">Habilidades</h2>
@@ -430,7 +428,7 @@ export function ProfilePage() {
           </motion.div>
 
           {/* Preview dos Projetos */}
-          <motion.div variants={itemVariants} className="lg:col-span-2">
+          <motion.div variants={itemVariants as Variants} className="lg:col-span-2">
             <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg overflow-hidden">
               <CardContent className="p-0">
                 <div className="p-5 pb-0">

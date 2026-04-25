@@ -3,7 +3,7 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
-import { motion } from "framer-motion"
+import { motion, Variants } from "framer-motion"
 import { Calendar, ExternalLink, Github, Grid3X3, List, Tag } from "lucide-react"
 import { useTheme } from "next-themes"
 import { useState } from "react"
@@ -125,6 +125,20 @@ const projects: Project[] = [
     gradient: "from-green-500/20 to-blue-500/20",
     borderColor: "border-green-400/30",
   },
+  {
+    id: 8,
+    title: "Password Manager",
+    description: "Gerenciador de senhas, utilizando NestJS e Next.js",
+    longDescription: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
+    image: "/password.png",
+    technologies: ["NestJS", "PostgreSQL", "Next.js", "TypeScript", "Tailwind CSS"],
+    category: "Gerenciador de senhas",
+    status: "Concluído",
+    date: "2026-03",
+    liveUrl: "https://eduelvs.up.railway.app",
+    gradient: "from-green-500/20 to-blue-500/20",
+    borderColor: "border-green-400/30",
+  },
 
 ]
 
@@ -200,7 +214,7 @@ export function ProjectsPage() {
     <div className="max-w-7xl mx-auto px-4 py-8">
       <motion.div variants={containerVariants} initial="hidden" animate="visible">
         {/* Header */}
-        <motion.div variants={itemVariants} className="text-center mb-12">
+        <motion.div variants={itemVariants as Variants} className="text-center mb-12">
           <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-foreground via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
             Meus Projetos
           </h1>
@@ -211,7 +225,7 @@ export function ProjectsPage() {
 
         {/* Controls */}
         <motion.div
-          variants={itemVariants}
+          variants={itemVariants as Variants}
           className="flex flex-col sm:flex-row justify-between items-center gap-4 mb-8"
         >
           {/* Category Filter */}
@@ -258,7 +272,7 @@ export function ProjectsPage() {
           {filteredProjects.map((project, index) => (
             <motion.div
               key={project.id}
-              variants={cardVariants}
+              variants={cardVariants as Variants}
               initial="hidden"
               animate="visible"
               whileHover="hover"
@@ -342,7 +356,7 @@ export function ProjectsPage() {
 
         {/* Empty State */}
         {filteredProjects.length === 0 && (
-          <motion.div variants={itemVariants} className="text-center py-12">
+          <motion.div variants={itemVariants as Variants} className="text-center py-12">
             <p className="text-xl text-muted-foreground">Nenhum projeto encontrado para esta categoria.</p>
           </motion.div>
         )}
