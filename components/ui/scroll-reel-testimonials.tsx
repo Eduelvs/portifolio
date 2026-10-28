@@ -1,6 +1,7 @@
 "use client";
 
 import * as React from "react";
+import OptionWheel from "@/components/ui/OptionWheel";
 
 export interface ScrollReelTestimonial {
   quote: string;
@@ -21,6 +22,9 @@ const STEP = 3 * (CELL + GAP);
 
 const EXIT_MS = 240;
 const SLIDE_MS = 800;
+const AUTO_MS = 15000;
+const TIMER_R = 16;
+const TIMER_C = 2 * Math.PI * TIMER_R;
 
 const EASE_INOUT = "cubic-bezier(0.65,0,0.35,1)";
 
@@ -126,6 +130,9 @@ export function ScrollReelTestimonials({
   const [displayIndex, setDisplayIndex] = React.useState(0);
   const [exiting, setExiting] = React.useState(false);
   const [mounted, setMounted] = React.useState(false);
+  const [secondsLeft, setSecondsLeft] = React.useState(AUTO_MS / 1000);
+  const [paused, setPaused] = React.useState(false);
+  const leftMs = React.useRef(AUTO_MS);
   const animating = React.useRef(false);
   const timeouts = React.useRef<ReturnType<typeof setTimeout>[]>([]);
 
@@ -141,19 +148,21 @@ export function ScrollReelTestimonials({
     };
   }, []);
 
-  const paginate = React.useCallback(
-    (dir: 1 | -1) => {
-      if (animating.current) return;
-      const next = index + dir;
-      if (next < 0 || next >= count) return;
+  const goTo = React.useCallback(
+    (next: number) => {
+      if (count === 0) return;
+      const wrapped = ((next % count) + count) % count;
+      if (wrapped === index) return;
+      timeouts.current.forEach(clearTimeout);
+      timeouts.current = [];
       animating.current = true;
 
-      setIndex(next);
+      setIndex(wrapped);
       setExiting(true);
 
       timeouts.current.push(
         setTimeout(() => {
-          setDisplayIndex(next);
+          setDisplayIndex(wrapped);
           setExiting(false);
         }, EXIT_MS)
       );
@@ -166,16 +175,54 @@ export function ScrollReelTestimonials({
     [index, count]
   );
 
-  const onKeyDown = (e: React.KeyboardEvent) => {
-    if (e.key === "ArrowRight") {
-      e.preventDefault();
-      paginate(1);
-    }
-    if (e.key === "ArrowLeft") {
-      e.preventDefault();
-      paginate(-1);
-    }
-  };
+  const paginate = React.useCallback(
+    (dir: 1 | -1, loop = false) => {
+      if (animating.current) return;
+      let next = index + dir;
+      if (loop) next = (next + count) % count;
+      else if (next < 0 || next >= count) return;
+      goTo(next);
+    },
+    [index, count, goTo]
+  );
+
+  const labels = React.useMemo(
+    () =>
+      testimonials.map((item) => {
+        const name = item.author.split(" · ")[0] ?? item.author;
+        return name.split(" ")[0] || name;
+      }),
+    [testimonials]
+  );
+
+  React.useEffect(() => {
+    leftMs.current = AUTO_MS;
+    setSecondsLeft(AUTO_MS / 1000);
+    setPaused(false);
+  }, [index]);
+
+  React.useEffect(() => {
+    if (paused || count < 2) return;
+    const reduced = window.matchMedia(
+      "(prefers-reduced-motion: reduce)"
+    ).matches;
+    if (reduced) return;
+
+    const budget = leftMs.current;
+    const started = Date.now();
+    const tick = window.setInterval(() => {
+      const left = Math.max(0, budget - (Date.now() - started));
+      leftMs.current = left;
+      setSecondsLeft(Math.ceil(left / 1000));
+    }, 250);
+    const advance = window.setTimeout(() => paginate(1, true), budget);
+
+    return () => {
+      leftMs.current = Math.max(0, budget - (Date.now() - started));
+      window.clearInterval(tick);
+      window.clearTimeout(advance);
+    };
+  }, [paused, index, count, paginate]);
 
   const middleItems = React.useMemo(() => {
     const items: Array<{ type: "cell" } | { type: "featured"; i: number }> = [];
@@ -207,8 +254,6 @@ export function ScrollReelTestimonials({
       role="region"
       aria-roledescription="carousel"
       aria-label="Recomendações"
-      tabIndex={0}
-      onKeyDown={onKeyDown}
       className={cn(
         "relative flex w-full max-w-[1060px] flex-col items-stretch gap-2.5 overflow-hidden rounded-xl border border-border bg-muted shadow-[inset_0_2px_0_rgba(255,255,255,1)] outline-none focus-visible:ring-2 focus-visible:ring-ring md:min-h-[320px] md:flex-row",
         "dark:shadow-[inset_0_1px_0_rgba(255,255,255,0.06)]",
@@ -265,28 +310,90 @@ export function ScrollReelTestimonials({
         </div>
       </div>
 
-      <div className="flex min-w-0 flex-1 flex-col justify-between self-stretch px-5 py-7 md:py-10">
-        <div className="flex flex-col gap-[9px]">
-          <svg
-            className="block h-12 w-12 text-muted-foreground/40"
-            viewBox="0 0 24 24"
-            fill="currentColor"
-            aria-hidden="true"
-          >
-            <path d="M4.58 17.32C3.55 16.23 3 15 3 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18zm10 0C13.55 16.23 13 15 13 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18z" />
-          </svg>
+      <div className="flex min-w-0 flex-1 self-stretch">
+        <div className="flex min-w-0 flex-1 flex-col px-5 py-7 md:py-10">
+          <div className="mb-[9px] flex items-start justify-between gap-3">
+            <svg
+              className="block h-12 w-12 text-muted-foreground/40"
+              viewBox="0 0 24 24"
+              fill="currentColor"
+              aria-hidden="true"
+            >
+              <path d="M4.58 17.32C3.55 16.23 3 15 3 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18zm10 0C13.55 16.23 13 15 13 13.01c0-3.5 2.46-6.64 6.03-8.19l.9 1.38c-3.34 1.8-4 4.15-4.25 5.62.54-.28 1.24-.38 1.93-.31 1.8.17 3.23 1.65 3.23 3.49a3.5 3.5 0 0 1-3.5 3.5c-1.07 0-2.1-.49-2.75-1.18z" />
+            </svg>
+            {count > 1 && (
+              <button
+                type="button"
+                onClick={() => setPaused((value) => !value)}
+                aria-label={paused ? "Continuar recomendações" : "Pausar recomendações"}
+                aria-pressed={paused}
+                className="relative grid h-12 w-12 shrink-0 cursor-pointer place-items-center rounded-full bg-transparent p-0 text-foreground"
+              >
+                <svg
+                  className="absolute inset-0 -rotate-90"
+                  viewBox="0 0 44 44"
+                  aria-hidden="true"
+                >
+                  <circle
+                    cx="22"
+                    cy="22"
+                    r={TIMER_R}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeOpacity="0.25"
+                    strokeWidth="2.5"
+                  />
+                  <circle
+                    key={index}
+                    cx="22"
+                    cy="22"
+                    r={TIMER_R}
+                    fill="none"
+                    stroke="currentColor"
+                    strokeWidth="2.5"
+                    strokeLinecap="round"
+                    className="scroll-reel-countdown"
+                    style={{
+                      strokeDasharray: TIMER_C,
+                      strokeDashoffset: 0,
+                      animationPlayState: paused ? "paused" : "running",
+                      ["--reel-timer-length" as string]: TIMER_C,
+                    }}
+                  />
+                </svg>
+                {paused ? (
+                  <svg
+                    className="h-3.5 w-3.5"
+                    viewBox="0 0 12 12"
+                    fill="currentColor"
+                    aria-hidden="true"
+                  >
+                    <rect x="2.25" y="1.75" width="2.4" height="8.5" rx="0.6" />
+                    <rect x="7.35" y="1.75" width="2.4" height="8.5" rx="0.6" />
+                  </svg>
+                ) : (
+                  <span className="text-xs font-semibold tabular-nums">
+                    {secondsLeft}
+                  </span>
+                )}
+              </button>
+            )}
+          </div>
 
           <div
-            className="relative w-full max-w-[390px] overflow-hidden"
+            className="relative grid w-full max-w-[390px]"
             aria-live="polite"
           >
-            <div
-              aria-hidden="true"
-              className="invisible flex min-h-[140px] flex-col gap-[19px]"
-            >
-              <p className={QUOTE_CLASSES}>{current.quote}</p>
-              <p className={AUTHOR_CLASSES}>{current.author}</p>
-            </div>
+            {testimonials.map((item, i) => (
+              <div
+                key={i}
+                aria-hidden="true"
+                className="invisible col-start-1 row-start-1 flex flex-col gap-[19px]"
+              >
+                <p className={QUOTE_CLASSES}>{item.quote}</p>
+                <p className={AUTHOR_CLASSES}>{item.author}</p>
+              </div>
+            ))}
             <div
               key={displayIndex}
               className={cn(
@@ -316,45 +423,28 @@ export function ScrollReelTestimonials({
           </div>
         </div>
 
-        <div className="mt-6 flex items-center gap-1.5 md:mt-0">
-          <button
-            type="button"
-            onClick={() => paginate(-1)}
-            disabled={index === 0}
-            aria-label="Recomendação anterior"
-            className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-foreground/15 bg-transparent p-0 text-foreground transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:enabled:scale-[1.08] active:enabled:scale-[0.94] disabled:cursor-default disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <svg
-              className="h-3 w-3 opacity-70"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="M7.5 2.5 3.5 6l4 3.5" />
-            </svg>
-          </button>
-          <button
-            type="button"
-            onClick={() => paginate(1)}
-            disabled={index === count - 1}
-            aria-label="Próxima recomendação"
-            className="grid h-6 w-6 cursor-pointer place-items-center rounded-full border border-foreground/15 bg-transparent p-0 text-foreground transition-[opacity,transform] duration-200 ease-[cubic-bezier(0.22,1,0.36,1)] hover:enabled:scale-[1.08] active:enabled:scale-[0.94] disabled:cursor-default disabled:opacity-40 focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring"
-          >
-            <svg
-              className="h-3 w-3 opacity-70"
-              viewBox="0 0 12 12"
-              fill="none"
-              stroke="currentColor"
-              strokeWidth="1.5"
-              strokeLinecap="round"
-              strokeLinejoin="round"
-            >
-              <path d="m4.5 2.5 4 3.5-4 3.5" />
-            </svg>
-          </button>
+        <div className="relative w-[7.75rem] shrink-0 self-stretch">
+          <OptionWheel
+            items={labels}
+            defaultSelected={0}
+            selected={index}
+            onChange={(next: number) => goTo(next)}
+            side="right"
+            textColor="#a6a6a6"
+            activeColor="#ffffff"
+            fontSize={1}
+            spacing={2.2}
+            curve={0.85}
+            tilt={8}
+            blur={1.2}
+            fade={0.4}
+            minOpacity={0.14}
+            smoothing={180}
+            inset={12}
+            loop
+            draggable
+            className="absolute inset-0"
+          />
         </div>
       </div>
     </div>

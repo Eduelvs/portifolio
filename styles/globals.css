@@ -128,11 +128,25 @@ body {
   transform: none;
 }
 
+@keyframes scroll-reel-countdown {
+  to {
+    stroke-dashoffset: var(--reel-timer-length);
+  }
+}
+
+.scroll-reel-countdown {
+  animation: scroll-reel-countdown 15s linear forwards;
+}
+
 @media (prefers-reduced-motion: reduce) {
   .scroll-reel-char,
   .scroll-reel-exit {
     animation: none;
     opacity: 1;
     transform: none;
+  }
+
+  .scroll-reel-countdown {
+    animation: none;
   }
 }
