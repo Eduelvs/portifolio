@@ -122,6 +122,7 @@ const projects: Project[] = [
 const projectBandImages = projects.map((project) => ({
   src: project.image,
   alt: project.title,
+  href: project.liveUrl,
 }))
 
 const containerVariants = {
@@ -273,11 +274,27 @@ export function ProjectsPage() {
 
                 {/* Project Image */}
                 <div className={`relative ${viewMode === "list" ? "md:w-1/3" : "w-full"}`}>
-                  <img
-                    src={project.image || "/placeholder.svg"}
-                    alt={project.title}
-                    className={`w-full object-cover ${viewMode === "list" ? "h-48 md:h-full" : "h-48"}`}
-                  />
+                  {project.liveUrl ? (
+                    <a
+                      href={project.liveUrl}
+                      target="_blank"
+                      rel="noopener noreferrer"
+                      aria-label={`Abrir ${project.title}`}
+                      className="block"
+                    >
+                      <img
+                        src={project.image || "/placeholder.svg"}
+                        alt=""
+                        className={`w-full object-cover ${viewMode === "list" ? "h-48 md:h-full" : "h-48"}`}
+                      />
+                    </a>
+                  ) : (
+                    <img
+                      src={project.image || "/placeholder.svg"}
+                      alt={project.title}
+                      className={`w-full object-cover ${viewMode === "list" ? "h-48 md:h-full" : "h-48"}`}
+                    />
+                  )}
                   <div className="absolute top-2 right-2">
                     <Badge className={`${getStatusColor(project.status)} border`}>{project.status}</Badge>
                   </div>

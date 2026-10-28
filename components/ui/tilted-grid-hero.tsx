@@ -90,6 +90,8 @@ export type TiltedGridImage = {
   src: string;
   /** Only used if you drop the decorative treatment; the band is aria-hidden. */
   alt?: string;
+  /** Opens this URL in a new tab when the tile is clicked. */
+  href?: string;
 };
 
 export type TiltedGridHeroProps = {
@@ -213,6 +215,7 @@ export function TiltedGridHero({
 
   const share = aspectRatio / SLICES;
   const duration = columns * speed;
+  const linked = images.some((image) => image.href);
   const mask = `linear-gradient(90deg,transparent,#000 ${fade}%,#000 ${
     100 - fade
   }%,transparent)`;
@@ -227,7 +230,7 @@ export function TiltedGridHero({
       <style>{css}</style>
 
       <div
-        aria-hidden
+        aria-hidden={linked ? undefined : true}
         className="pointer-events-none absolute inset-0 transition-opacity duration-500"
         style={{
           opacity: layout ? 1 : 0,
@@ -244,10 +247,25 @@ export function TiltedGridHero({
           // back, so this numbers tiles in the order they come on.
           const first = columns - 1 - t;
           const img = images[(shown[t] ?? first) % Math.max(images.length, 1)];
+          const TileTag = img?.href ? "a" : "div";
           return (
-            <div
+            <TileTag
               key={t}
-              className={cn(tile, "absolute")}
+              {...(img?.href
+                ? {
+                    href: img.href,
+                    target: "_blank",
+                    rel: "noopener noreferrer",
+                    "aria-label": img.alt
+                      ? `Abrir ${img.alt}`
+                      : "Abrir projeto",
+                  }
+                : {})}
+              className={cn(
+                tile,
+                "absolute",
+                img?.href && "pointer-events-auto cursor-pointer",
+              )}
               style={{
                 left: `calc(50% - ${u(aspectRatio / 2)})`,
                 top: `calc(${axis}% - ${u(0.5)})`,
@@ -304,7 +322,7 @@ export function TiltedGridHero({
                   ) : null}
                 </div>
               ))}
-            </div>
+            </TileTag>
           );
         })}
       </div>

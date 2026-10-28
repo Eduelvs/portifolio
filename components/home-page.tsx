@@ -23,26 +23,32 @@ const projects = [
   {
     src: "/password.png",
     alt: "Password Manager",
+    href: "https://eduelvs.up.railway.app",
   },
   {
     src: "/brasildle.png",
     alt: "Brasildle",
+    href: "https://brasildle.vercel.app",
   },
   {
     src: "/portifolio-larissa.png",
     alt: "Portfólio Larissa Tofanello",
+    href: "https://v0-larissatofanello.vercel.app",
   },
   {
     src: "/evento.png",
     alt: "eVento",
+    href: "https://evento.up.railway.app",
   },
   {
     src: "/saas.png",
     alt: "Saas ChatBot",
+    href: "https://saas-chatbot-pi.vercel.app",
   },
   {
     src: "/dashboard.png",
     alt: "Dashboard Services",
+    href: "https://dashboard-services-iota.vercel.app",
   },
 ]
 
@@ -123,7 +129,7 @@ export function HomePage() {
           </h1>
 
           <p className="mb-5 max-w-2xl text-lg leading-relaxed text-muted-foreground md:text-xl">
-          Engenheiro de Software Front-end, com experiência como Pleno em produtos de crédito para fintech usando React, Next.js e TypeScript. Gosto de trabalhar perto de Produto e Design, cuidar de cada detalhe da interface e transformar problemas complexos em experiências simples. Hoje estou em busca de uma nova oportunidade como Front-end Pleno.
+          Engenheiro de Software Front-end com experiência em produtos para fintech. Construo interfaces com React, Next.js e TypeScript, sempre perto de Produto e Design, com atenção a cada detalhe.
           </p>
 
           <div className="mb-6 flex flex-wrap items-center justify-center gap-3">
