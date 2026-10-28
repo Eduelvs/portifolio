@@ -24,7 +24,6 @@ import { Button } from "@/components/ui/button"
 import { Input } from "@/components/ui/input"
 import { Textarea } from "@/components/ui/textarea"
 import { Label } from "@/components/ui/label"
-import { useTheme } from "next-themes"
 
 interface ContactInfo {
   icon: React.ReactNode
@@ -173,8 +172,6 @@ export function ContactPage() {
   })
   const [isSubmitting, setIsSubmitting] = useState(false)
   const [isSubmitted, setIsSubmitted] = useState(false)
-  const { theme } = useTheme()
-  const isDarkTheme = theme === "dark"
 
   const handleInputChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     const { name, value } = e.target
@@ -217,11 +214,7 @@ export function ContactPage() {
           <motion.div variants={itemVariants}>
             <Card className="border border-border/40 bg-gradient-to-br from-background/80 to-background/40 backdrop-blur-lg">
               <motion.div
-                className={`absolute -inset-2 bg-gradient-radial from-transparent ${
-                  isDarkTheme
-                    ? "via-blue-400/20 via-30% via-purple-400/20 via-60% via-green-400/20 via-90%"
-                    : "via-blue-400/10 via-30% via-purple-400/10 via-60% via-green-400/10 via-90%"
-                } to-transparent rounded-3xl pointer-events-none`}
+                className="absolute -inset-2 bg-gradient-radial from-transparent via-blue-400/20 via-30% via-purple-400/20 via-60% via-green-400/20 via-90% to-transparent rounded-3xl pointer-events-none"
                 variants={glowVariants}
                 whileHover="hover"
                 initial="initial"

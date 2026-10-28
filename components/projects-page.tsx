@@ -3,9 +3,9 @@
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card"
+import { TiltedGridHero } from "@/components/ui/tilted-grid-hero"
 import { motion, Variants } from "framer-motion"
 import { Calendar, ExternalLink, Github, Grid3X3, List, Tag } from "lucide-react"
-import { useTheme } from "next-themes"
 import { useState } from "react"
 
 interface Project {
@@ -20,40 +20,57 @@ interface Project {
   date: string
   githubUrl?: string
   liveUrl?: string
+  role: string
   gradient: string
   borderColor: string
 }
 
 const projects: Project[] = [
   {
-    id: 1,
-    title: "Hora de Aventura",
-    description: "Aplicação Completa",
+    id: 8,
+    title: "Password Manager",
+    description: "Gerenciador de senhas com Next.js, NestJS e extensão de navegador",
     longDescription:
-      "Modelagem de Classes, Banco de Dados, Telas e Funcionalidades, Utilizando Java com a biblioteca Java Swing",
-    image: "/hora_aventura.png",
-    technologies: ["Java", "Database", "Java Swing"],
-    category: "Aplicação em Java",
+      "Gerenciador de senhas com Next.js, NestJS e PostgreSQL, JWT em cookies e extensão de navegador.",
+    image: "/password.png",
+    technologies: ["NestJS", "PostgreSQL", "Next.js", "TypeScript", "Tailwind CSS"],
+    category: "Gerenciador de senhas",
     status: "Concluído",
-    date: "2023-01",
-    githubUrl: "https://github.com/Eduelvs/Projeto-com-Java-Swing",
-    gradient: "from-blue-500/20 to-purple-500/20",
-    borderColor: "border-blue-400/30",
-  },
-  {
-    id: 2,
-    title: "BLE.h",
-    description: "Compilador",
-    longDescription:
-      "Desenvolvimento de uma linguagem BLE.h, compilada e convertida em python, 100% Funcional",
-    image: "/preg.png",
-    technologies: ["Python", "BLE.h", "Compilador"],
-    category: "Compilador",
-    status: "Concluído",
-    date: "2024-02",
-    githubUrl: "https://github.com/Eduelvs/Desenvolvimento-de-um-Compilador",
+    date: "2026-03",
+    liveUrl: "https://eduelvs.up.railway.app",
+    role: "Front-end, UI e extensão do navegador",
     gradient: "from-green-500/20 to-blue-500/20",
     borderColor: "border-green-400/30",
+  },
+  {
+    id: 7,
+    title: "Brasildle",
+    description: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
+    longDescription: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
+    image: "/brasildle.png",
+    technologies: ["React", "Vite", "Tailwind CSS"],
+    category: "Jogo",
+    status: "Concluído",
+    date: "2026-03",
+    liveUrl: "https://brasildle.vercel.app",
+    role: "Front-end, estado e interface",
+    gradient: "from-green-500/20 to-blue-500/20",
+    borderColor: "border-green-400/30",
+  },
+  {
+    id: 6,
+    title: "Portifolio Larissa Tofanello",
+    description: "Portifolio da Larissa Tofanello, utilizando Next.js",
+    longDescription: "Portifolio da Larissa Tofanello, utilizando Next.js",
+    image: "/portifolio-larissa.png",
+    technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
+    category: "Portifolio",
+    status: "Concluído",
+    date: "2026-03",
+    liveUrl: "https://v0-larissatofanello.vercel.app",
+    role: "Front-end e design da interface",
+    gradient: "from-yellow-500/20 to-orange-500/20",
+    borderColor: "border-yellow-400/30",
   },
   {
     id: 3,
@@ -66,6 +83,7 @@ const projects: Project[] = [
     status: "Concluído",
     date: "2025-12",
     liveUrl: "https://evento.up.railway.app",
+    role: "Front-end e interface da plataforma",
     gradient: "from-red-500/20 to-purple-500/20",
     borderColor: "border-red-400/30",
   },
@@ -80,6 +98,7 @@ const projects: Project[] = [
     status: "Em Desenvolvimento",
     date: "2026-06",
     liveUrl: "https://saas-chatbot-pi.vercel.app",
+    role: "Front-end, UI e integração com API",
     gradient: "from-teal-500/20 to-yellow-500/20",
     borderColor: "border-green-400/30",
   },
@@ -94,53 +113,16 @@ const projects: Project[] = [
     status: "Em Desenvolvimento",
     date: "2026-03",
     liveUrl: "https://dashboard-services-iota.vercel.app",
+    role: "Front-end, UI e integração com API",
     gradient: "from-indigo-500/20 to-sky-500/20",
     borderColor: "border-indigo-400/30",
   },
-  {
-    id: 6,
-    title: "Portifolio Larissa Tofanello",
-    description: "Portifolio da Larissa Tofanello, utilizando Next.js",
-    longDescription: "Portifolio da Larissa Tofanello, utilizando Next.js",
-    image: "/portifolio-larissa.png",
-    technologies: ["Next.js", "Tailwind CSS", "TypeScript"],
-    category: "Portifolio",
-    status: "Concluído",
-    date: "2026-03",
-    liveUrl: "https://v0-larissatofanello.vercel.app",
-    gradient: "from-yellow-500/20 to-orange-500/20",
-    borderColor: "border-yellow-400/30",
-  },
-  {
-    id: 7,
-    title: "Brasildle",
-    description: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
-    longDescription: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
-    image: "/brasildle.png",
-    technologies: ["React", "Vite", "Tailwind CSS"],
-    category: "Jogo",
-    status: "Concluído",
-    date: "2026-03",
-    liveUrl: "https://brasildle.vercel.app",
-    gradient: "from-green-500/20 to-blue-500/20",
-    borderColor: "border-green-400/30",
-  },
-  {
-    id: 8,
-    title: "Password Manager",
-    description: "Gerenciador de senhas, utilizando NestJS e Next.js",
-    longDescription: "Jogo de adivinhação de estados brasileiros, utilizando React e Vite",
-    image: "/password.png",
-    technologies: ["NestJS", "PostgreSQL", "Next.js", "TypeScript", "Tailwind CSS"],
-    category: "Gerenciador de senhas",
-    status: "Concluído",
-    date: "2026-03",
-    liveUrl: "https://eduelvs.up.railway.app",
-    gradient: "from-green-500/20 to-blue-500/20",
-    borderColor: "border-green-400/30",
-  },
-
 ]
+
+const projectBandImages = projects.map((project) => ({
+  src: project.image,
+  alt: project.title,
+}))
 
 const containerVariants = {
   hidden: { opacity: 0 },
@@ -189,8 +171,6 @@ const cardVariants = {
 export function ProjectsPage() {
   const [viewMode, setViewMode] = useState<"grid" | "list">("grid")
   const [selectedCategory, setSelectedCategory] = useState<string>("all")
-  const { theme } = useTheme()
-  const isDarkTheme = theme === "dark"
 
   const categories = ["all", ...Array.from(new Set(projects.map((p) => p.category)))]
 
@@ -211,18 +191,23 @@ export function ProjectsPage() {
   }
 
   return (
-    <div className="max-w-7xl mx-auto px-4 py-8">
-      <motion.div variants={containerVariants} initial="hidden" animate="visible">
-        {/* Header */}
-        <motion.div variants={itemVariants as Variants} className="text-center mb-12">
-          <h1 className="text-4xl md:text-6xl font-bold bg-gradient-to-r from-foreground via-blue-600 to-purple-600 bg-clip-text text-transparent mb-6">
+    <>
+      <TiltedGridHero
+        images={projectBandImages}
+        className="h-[420px] w-full border-b border-border bg-background sm:h-[560px]"
+      >
+        <div className="relative z-10 flex h-full flex-col items-center justify-center px-6 text-center">
+          <h1 className="mb-6 text-4xl font-bold text-foreground md:text-6xl">
             Meus Projetos
           </h1>
-          <p className="text-xl text-muted-foreground max-w-3xl mx-auto">
+          <p className="mx-auto max-w-3xl text-balance text-xl text-muted-foreground">
             Uma coleção dos meus trabalhos mais recentes, desde aplicações web até projetos de inteligência artificial.
           </p>
-        </motion.div>
+        </div>
+      </TiltedGridHero>
 
+      <div className="max-w-7xl mx-auto px-4 py-8">
+      <motion.div variants={containerVariants} initial="hidden" animate="visible">
         {/* Controls */}
         <motion.div
           variants={itemVariants as Variants}
@@ -301,14 +286,15 @@ export function ProjectsPage() {
                 {/* Project Content */}
                 <div className={`p-6 relative z-10 flex flex-col ${viewMode === "list" ? "md:w-2/3" : "flex-1"}`}>
                   <CardHeader className="p-0 mb-4">
-                    <div className="flex items-start justify-between mb-2">
+                    <div className="mb-2 flex items-start justify-between gap-3">
                       <CardTitle className="text-xl font-bold text-foreground">{project.title}</CardTitle>
-                      <div className="flex items-center gap-1 text-xs text-muted-foreground">
+                      <div className="flex shrink-0 items-center gap-1 text-xs text-muted-foreground">
                         <Calendar className="h-3 w-3" />
                         {new Date(project.date).toLocaleDateString("pt-BR", { month: "short", year: "numeric" })}
                       </div>
                     </div>
-                    <div className="flex items-center gap-2 mb-3">
+                    <p className="mb-3 text-sm text-foreground/80">{project.role}</p>
+                    <div className="flex items-center gap-2">
                       <Tag className="h-4 w-4 text-muted-foreground" />
                       <span className="text-sm text-muted-foreground">{project.category}</span>
                     </div>
@@ -362,5 +348,6 @@ export function ProjectsPage() {
         )}
       </motion.div>
     </div>
+    </>
   )
 }

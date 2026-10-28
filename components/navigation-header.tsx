@@ -2,12 +2,10 @@
 
 import { motion } from "framer-motion"
 import { Bell, Home, Phone, User } from "lucide-react"
-import { useTheme } from "next-themes"
 import Image from "next/image"
 import Link from "next/link"
 import { usePathname } from "next/navigation"
 import type * as React from "react"
-import { ThemeToggle } from "./theme-toggle"
 import { Variants , Transition} from "framer-motion"
 interface MenuItem {
   icon: React.ReactNode
@@ -100,9 +98,7 @@ const sharedTransition = {
 }
 
 export function NavigationHeader() {
-  const { theme } = useTheme()
   const pathname = usePathname()
-  const isDarkTheme = theme === "dark"
 
   return (
     <header
@@ -141,11 +137,7 @@ export function NavigationHeader() {
           initial="initial"
         >
           <motion.div
-            className={`absolute -inset-1 bg-gradient-to-r ${
-              isDarkTheme
-                ? "from-blue-400/40 via-purple-400/40 to-pink-400/40"
-                : "from-blue-400/30 via-purple-400/30 to-pink-400/30"
-            } rounded-full z-0 pointer-events-none`}
+            className="absolute -inset-1 bg-gradient-to-r from-blue-400/40 via-purple-400/40 to-pink-400/40 rounded-full z-0 pointer-events-none"
             variants={avatarGlowVariants as unknown as Variants}
           />
           <Link href="/profile" className="relative z-10 block">
@@ -173,11 +165,7 @@ export function NavigationHeader() {
           initial="initial"
         >
           <motion.div
-            className={`absolute -inset-1 bg-gradient-to-r ${
-              isDarkTheme
-                ? "from-blue-400/40 via-purple-400/40 to-pink-400/40"
-                : "from-blue-400/30 via-purple-400/30 to-pink-400/30"
-            } rounded-full z-0 pointer-events-none`}
+            className="absolute -inset-1 bg-gradient-to-r from-blue-400/40 via-purple-400/40 to-pink-400/40 rounded-full z-0 pointer-events-none"
             variants={avatarGlowVariants as unknown as Variants}
           />
           <Link href="/profile" className="relative z-10 block">
@@ -211,11 +199,7 @@ export function NavigationHeader() {
           whileHover="hover"
         >
           <motion.div
-            className={`absolute -inset-2 bg-gradient-radial from-transparent ${
-              isDarkTheme
-                ? "via-blue-400/30 via-30% via-purple-400/30 via-60% via-red-400/30 via-90%"
-                : "via-blue-400/20 via-30% via-purple-400/20 via-60% via-red-400/20 via-90%"
-            } to-transparent rounded-3xl z-0 pointer-events-none`}
+            className="absolute -inset-2 bg-gradient-radial from-transparent via-blue-400/30 via-30% via-purple-400/30 via-60% via-red-400/30 via-90% to-transparent rounded-3xl z-0 pointer-events-none"
             variants={navGlowVariants as unknown as Variants}
           />
           <ul
@@ -290,54 +274,6 @@ export function NavigationHeader() {
           </ul>
         </motion.nav>
 
-        {/* Theme Toggle Button with enhanced styling */}
-        <motion.div
-          className="
-            p-2 rounded-full
-            bg-gradient-to-b from-background/95 to-background/80
-            backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden
-            hidden sm:block
-          "
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <motion.div
-            className={`absolute -inset-2 bg-gradient-radial from-transparent ${
-              isDarkTheme
-                ? "via-yellow-400/30 via-30% via-purple-400/30 via-60%"
-                : "via-blue-400/20 via-30% via-purple-400/20 via-60%"
-            } to-transparent rounded-full z-0 pointer-events-none opacity-0`}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
-          />
-          <div className="relative z-10">
-            <ThemeToggle />
-          </div>
-        </motion.div>
-        {/* Botão de tema para mobile */}
-        <motion.div
-          className="
-            p-2 rounded-full
-            bg-gradient-to-b from-background/95 to-background/80
-            backdrop-blur-lg border border-border/40 shadow-lg relative overflow-hidden
-            sm:hidden
-          "
-          whileHover={{ scale: 1.05 }}
-          whileTap={{ scale: 0.95 }}
-        >
-          <motion.div
-            className={`absolute -inset-2 bg-gradient-radial from-transparent ${
-              isDarkTheme
-                ? "via-yellow-400/30 via-30% via-purple-400/30 via-60%"
-                : "via-blue-400/20 via-30% via-purple-400/20 via-60%"
-            } to-transparent rounded-full z-0 pointer-events-none opacity-0`}
-            animate={{ opacity: [0, 1, 0] }}
-            transition={{ duration: 2, repeat: Number.POSITIVE_INFINITY, repeatType: "reverse" }}
-          />
-          <div className="relative z-10">
-            <ThemeToggle />
-          </div>
-        </motion.div>
       </div>
     </header>
   )
