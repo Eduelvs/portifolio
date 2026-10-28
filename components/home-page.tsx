@@ -112,7 +112,7 @@ export function HomePage() {
         <div className="mx-auto flex min-h-screen max-w-4xl flex-col items-center justify-center px-6 py-8 text-center">
           <div className="relative mb-4">
             <div className="absolute -inset-4 rounded-full bg-gradient-radial from-transparent via-blue-400/30 via-30% via-purple-400/30 via-60% via-pink-400/30 via-90% to-transparent" />
-            <Avatar className="relative z-10 h-24 w-24 border-4 border-border/40">
+            <Avatar className="relative z-10 h-40 w-40 border-4 border-border/40">
               <AvatarImage src="/foto_perfil.jpg" alt="Eduardo Alves Carvalho" />
               <AvatarFallback className="bg-gradient-to-br from-blue-500 to-purple-600 text-2xl text-white">
                 EA
