@@ -154,7 +154,18 @@ const OptionWheel = ({
     (value, snap) => {
       const cfg = cfgRef.current;
       let v = value;
-      if (!cfg.loop) v = Math.min(Math.max(v, 0), Math.max(cfg.count - 1, 0));
+      if (!cfg.loop) {
+        v = Math.min(Math.max(v, 0), Math.max(cfg.count - 1, 0));
+      } else if (snap && cfg.count > 1) {
+        const n = cfg.count;
+        const idx = ((Math.round(v) % n) + n) % n;
+        const cur = targetRef.current;
+        const turns = Math.round((cur - idx) / n);
+        let next = idx + turns * n;
+        const other = next + (next < cur ? n : -n);
+        if (Math.abs(other - cur) < Math.abs(next - cur)) next = other;
+        v = next;
+      }
       if (snap) v = Math.round(v);
       targetRef.current = v;
       const idx = ((Math.round(v) % cfg.count) + cfg.count) % cfg.count;
@@ -249,9 +260,7 @@ const OptionWheel = ({
 
   useEffect(() => {
     if (typeof selected !== 'number' || items.length === 0) return;
-    const idx = ((selected % items.length) + items.length) % items.length;
-    if (idx === selectedRef.current && Math.abs(targetRef.current - idx) < 0.001) return;
-    applyTarget(idx, true);
+    applyTarget(selected, true);
   }, [selected, items.length, applyTarget]);
 
   useEffect(

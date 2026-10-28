@@ -24,7 +24,6 @@ const EXIT_MS = 240;
 const SLIDE_MS = 800;
 const AUTO_MS = 15000;
 const TIMER_R = 16;
-const TIMER_C = 2 * Math.PI * TIMER_R;
 
 const EASE_INOUT = "cubic-bezier(0.65,0,0.35,1)";
 
@@ -186,6 +185,8 @@ export function ScrollReelTestimonials({
     [index, count, goTo]
   );
 
+  const [visual, setVisual] = React.useState(0);
+  const [instant, setInstant] = React.useState(false);
   const labels = React.useMemo(
     () =>
       testimonials.map((item) => {
@@ -194,6 +195,34 @@ export function ScrollReelTestimonials({
       }),
     [testimonials]
   );
+
+  React.useEffect(() => {
+    setVisual((prev) => {
+      if (count <= 1) return index;
+      const turns = Math.round((prev - index) / count);
+      let next = index + turns * count;
+      const other = next + (next < prev ? count : -count);
+      if (Math.abs(other - prev) < Math.abs(next - prev)) next = other;
+      return next;
+    });
+  }, [index, count]);
+
+  React.useEffect(() => {
+    if (visual >= 0 && visual < count) return;
+    const id = window.setTimeout(() => {
+      setInstant(true);
+      setVisual(((visual % count) + count) % count);
+    }, SLIDE_MS);
+    return () => window.clearTimeout(id);
+  }, [visual, count]);
+
+  React.useEffect(() => {
+    if (!instant) return;
+    const id = requestAnimationFrame(() => {
+      requestAnimationFrame(() => setInstant(false));
+    });
+    return () => cancelAnimationFrame(id);
+  }, [instant]);
 
   React.useEffect(() => {
     leftMs.current = AUTO_MS;
@@ -227,24 +256,32 @@ export function ScrollReelTestimonials({
   const middleItems = React.useMemo(() => {
     const items: Array<{ type: "cell" } | { type: "featured"; i: number }> = [];
     for (let i = 0; i < 3; i++) items.push({ type: "cell" });
+    if (count > 0) {
+      items.push({ type: "featured", i: count - 1 });
+      items.push({ type: "cell" }, { type: "cell" });
+    }
     testimonials.forEach((_, i) => {
       items.push({ type: "featured", i });
       if (i < count - 1) {
         items.push({ type: "cell" }, { type: "cell" });
       }
     });
+    if (count > 0) {
+      items.push({ type: "cell" }, { type: "cell" });
+      items.push({ type: "featured", i: 0 });
+    }
     for (let i = 0; i < 3; i++) items.push({ type: "cell" });
     return items;
   }, [testimonials, count]);
 
-  const sideCellCount = 4 + 2 * count;
+  const sideCellCount = 10 + 2 * count;
   const centerIdx = (count - 1) / 2;
-  const middleY = (centerIdx - index) * STEP;
+  const middleY = (centerIdx - visual) * STEP;
   const sideY = -middleY;
 
   const colStyle = (y: number): React.CSSProperties => ({
     transform: `translateY(${y}px)`,
-    transition: mounted ? `transform ${SLIDE_MS}ms ${EASE_INOUT}` : "none",
+    transition: mounted && !instant ? `transform ${SLIDE_MS}ms ${EASE_INOUT}` : "none",
   });
 
   const current = testimonials[displayIndex];
@@ -354,10 +391,7 @@ export function ScrollReelTestimonials({
                     strokeLinecap="round"
                     className="scroll-reel-countdown"
                     style={{
-                      strokeDasharray: TIMER_C,
-                      strokeDashoffset: 0,
                       animationPlayState: paused ? "paused" : "running",
-                      ["--reel-timer-length" as string]: TIMER_C,
                     }}
                   />
                 </svg>

@@ -129,12 +129,16 @@ body {
 }
 
 @keyframes scroll-reel-countdown {
+  from {
+    stroke-dashoffset: 0px;
+  }
   to {
-    stroke-dashoffset: var(--reel-timer-length);
+    stroke-dashoffset: 100.531px;
   }
 }
 
 .scroll-reel-countdown {
+  stroke-dasharray: 100.531px;
   animation: scroll-reel-countdown 15s linear forwards;
 }
 
