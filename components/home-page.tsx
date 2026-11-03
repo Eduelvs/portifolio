@@ -63,7 +63,7 @@ const projects = [
     //link: "https://venda-simplificada.vercel.app",
   },
   {
-    image: "/leads.jpeg",
+    image: "/leads.png",
     label: "Leads",
     alt: "Leads",
     //link: "https://venda-simplificada.vercel.app",
