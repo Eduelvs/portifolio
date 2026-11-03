@@ -3,8 +3,8 @@
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar"
 import { Badge } from "@/components/ui/badge"
 import { Button } from "@/components/ui/button"
+import { AccordionGallery } from "@/components/ui/accordion-gallery"
 import { CinematicFooter } from "@/components/ui/motion-footer"
-import { TiltedGridHero } from "@/components/ui/tilted-grid-hero"
 import { TestimonialsSection } from "@/components/testimonials-section"
 import { gsap } from "gsap"
 import { ScrollTrigger } from "gsap/ScrollTrigger"
@@ -21,34 +21,52 @@ const whatsappUrl =
 
 const projects = [
   {
-    src: "/password.png",
+    image: "/password.png",
+    label: "Password Manager",
     alt: "Password Manager",
-    href: "https://eduelvs.up.railway.app",
+    link: "https://eduelvs.up.railway.app",
   },
   {
-    src: "/brasildle.png",
+    image: "/brasildle.png",
+    label: "Brasildle",
     alt: "Brasildle",
-    href: "https://brasildle.vercel.app",
+    link: "https://brasildle.vercel.app",
   },
   {
-    src: "/portifolio-larissa.png",
+    image: "/portifolio-larissa.png",
+    label: "Portfólio Larissa Tofanello",
     alt: "Portfólio Larissa Tofanello",
-    href: "https://v0-larissatofanello.vercel.app",
+    link: "https://v0-larissatofanello.vercel.app",
   },
   {
-    src: "/evento.png",
+    image: "/evento.png",
+    label: "eVento",
     alt: "eVento",
-    href: "https://evento.up.railway.app",
+    link: "https://evento.up.railway.app",
   },
   {
-    src: "/saas.png",
+    image: "/saas.png",
+    label: "Saas ChatBot",
     alt: "Saas ChatBot",
-    href: "https://saas-chatbot-pi.vercel.app",
+    link: "https://saas-chatbot-pi.vercel.app",
   },
   {
-    src: "/dashboard.png",
+    image: "/dashboard.png",
+    label: "Dashboard Services",
     alt: "Dashboard Services",
-    href: "https://dashboard-services-iota.vercel.app",
+    link: "https://dashboard-services-iota.vercel.app",
+  },
+  {
+    image: "/venda-simplificada.png",
+    label: "Venda Simplificada",
+    alt: "Venda Simplificada",
+    //link: "https://venda-simplificada.vercel.app",
+  },
+  {
+    image: "/leads.jpeg",
+    label: "Leads",
+    alt: "Leads",
+    //link: "https://venda-simplificada.vercel.app",
   },
 ]
 
@@ -178,8 +196,22 @@ export function HomePage() {
               Projetos
             </h2>
           </div>
-          <div ref={projectsBandRef} className="relative min-h-0 w-full flex-1 [transform-style:preserve-3d]">
-            <TiltedGridHero images={projects} axis={46} className="h-full w-full" />
+          <div
+            ref={projectsBandRef}
+            className="relative flex min-h-0 w-full flex-1 items-center px-6 pb-10 [transform-style:preserve-3d] md:px-10"
+          >
+            <AccordionGallery
+              items={projects}
+              defaultIndex={0}
+              height={520}
+              accentColor="#ffffff"
+              textColor="#ffffff"
+              overlayColor="#060010"
+              showLabels
+              grayscale
+              trigger="hover"
+              className="mx-auto"
+            />
           </div>
         </section>
       </div>
